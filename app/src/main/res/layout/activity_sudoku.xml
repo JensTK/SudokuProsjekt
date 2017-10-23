@@ -14,4 +14,9 @@
         <include layout="@layout/rad3"/>
         <include layout="@layout/horislinje"/>
     </jens.sudokuprosjekt.KvadratLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sjekkKnapp"
+        android:id="@+id/sjekkKnapp"/>
 </LinearLayout>

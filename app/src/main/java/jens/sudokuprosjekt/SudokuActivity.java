@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
+
 import java.util.Random;
 
 /**
@@ -22,14 +26,32 @@ public class SudokuActivity extends Activity {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
 
+        Button sjekkKnapp = (Button)findViewById(R.id.sjekkKnapp);
+        sjekkKnapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sjekkSvar()) {
+                    Toast.makeText(SudokuActivity.this, "Riktig!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(SudokuActivity.this, "Feil", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         boolean ny = getIntent().getBooleanExtra("new", true);
         Log.i("tagg", "Nytt spill: " + ny);
         if (ny) {
-            testTall();
+            FilBehandler fil = new FilBehandler(this);
+            fil.lesFraFil();
+            tallene = fil.getTallene();
+            disabled = fil.getDisabled();
+            setTall();
         }
         else if (!ny) {
             lese();
         }
+
     }
 
     @Override
@@ -85,7 +107,7 @@ public class SudokuActivity extends Activity {
         }
     }
 
-    //Den leser fra UI til tallene[], for så å sette de derfra. Kan sikkert sette de direkte
+    //Den leser fra minne til tallene[], for så å sette de derfra. Kan sikkert sette de direkte
     private void lese() {
         Log.i("tagg", "lese()");
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -136,5 +158,59 @@ public class SudokuActivity extends Activity {
                 adapters[i].notifyDataSetChanged();
             }
         }
+    }
+
+    //Finner hvilken rad i et 3x3-nett du er på
+    private int finnRad(int i) {
+        return (int)Math.floor(i/3);
+    }
+
+    //.. og hvilken søyle
+    private int finnSøyle(int i) {
+        return i - (finnRad(i) * 3);
+    }
+
+    public boolean sjekkSvar() {
+        for (int i = 0; i < 9; i++) {
+            Log.i("tagg", i + " har rad " + finnRad(i) + " og søyle " + finnSøyle(i));
+        }
+        for (int t = 0; t < adapters.length; t++) {
+
+            //tallene fra denne ruta
+            int[] talls = adapters[t].getTallene();
+
+            for (int i = 0; i < talls.length; i++) {
+
+                //tallet vi sjekker
+                int tall = talls[i];
+
+                //Sjekke samme ruta
+                for (int j = 0; j < talls.length; j++) {
+                    if (talls[j] == tall && j != i) {
+                        Log.i("tagg", "B-konflikt: " + tall + " i boks " + t);
+                        return false;
+                    }
+                }
+
+                //Sjekke samme rad og søyle
+                for (int j = 0; j < adapters.length; j++) {
+
+                    if (t != j) {
+
+                        int[] talla = adapters[j].getTallene();
+
+                        for (int k = 0; k < talla.length; k++) {
+                            if ((finnRad(k) == finnRad(i) && finnRad(t) == finnRad(j)) || (finnSøyle(k) == finnSøyle(i) && finnSøyle(t) == finnSøyle(j))) {
+                                if (talla[k] == tall && k != i) {
+                                    Log.i("tagg", "R/S-konflikt: " + tall + " i boks " + t + " mot " + talla[k] + " i boks " + j);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

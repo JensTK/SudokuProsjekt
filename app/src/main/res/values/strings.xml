@@ -4,4 +4,5 @@
     <string name="nyKnapp">Nytt Spill</string>
     <string name="slettKnapp">Slett pågående spill</string>
     <string name="optKnapp">Alternativer</string>
+    <string name="sjekkKnapp">Sjekk svar</string>
 </resources>
