@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SudokuProsjekt</string>
+    <string name="fortsKnapp">Fortsett</string>
+    <string name="nyKnapp">Nytt Spill</string>
+    <string name="slettKnapp">Slett pågående spill</string>
+    <string name="optKnapp">Alternativer</string>
 </resources>

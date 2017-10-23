@@ -21,21 +21,25 @@ public class SudokuActivity extends Activity {
     public void onCreate(Bundle bndl) {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
-        if (bndl == null) {
+
+        boolean ny = getIntent().getBooleanExtra("new", true);
+        Log.i("tagg", "Nytt spill: " + ny);
+        if (ny) {
             testTall();
         }
-        else {
+        else if (!ny) {
             lese();
         }
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         lagre();
     }
 
     private void testTall() {
+        Log.i("tagg", "testTall()");
         //Generere tilf tall, for UItesting
         Random r = new Random();
         for (int i = 0; i < tallene.length; i++) {
@@ -54,6 +58,7 @@ public class SudokuActivity extends Activity {
         setTall();
     }
     private void lagre() {
+        Log.i("tagg", "lagre()");
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = pref.edit();
         for (int i = 0; i < adapters.length; i++) {
@@ -62,7 +67,7 @@ public class SudokuActivity extends Activity {
             for (int j : adapters[i].getTallene()) {
                 lagre += j + ",";
             }
-            Log.i("tagg", i + " - " + lagre);
+            //Log.i("tagg", i + " - " + lagre);
             edit.putString(Integer.toString(i), lagre);
 
             //Lagre om de er disabled
@@ -82,9 +87,10 @@ public class SudokuActivity extends Activity {
 
     //Den leser fra UI til tallene[], for så å sette de derfra. Kan sikkert sette de direkte
     private void lese() {
+        Log.i("tagg", "lese()");
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         for (int i = 0; i < tallene.length; i++) {
-            Log.i("tagg", i + " - " + pref.getString(Integer.toString(i), null));
+            //Log.i("tagg", i + " - " + pref.getString(Integer.toString(i), null));
             //Lese tallene
             String[] les = pref.getString(Integer.toString(i), null).split(",");
             for (int j = 0; j < les.length; j++) {

@@ -102,7 +102,7 @@ public class tallAdapter extends BaseAdapter {
                 String text = editfin.getText().toString();
                 if (! text.equals("")) {
                     int tall = Integer.parseInt(editfin.getText().toString());
-                    Log.i("tagg", "Endret: " + tall);
+                    //Log.i("tagg", "Endret: " + tall);
                     tallene[i] = tall;
                 }
                 else {
