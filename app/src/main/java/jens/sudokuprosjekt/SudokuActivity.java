@@ -30,14 +30,15 @@ public class SudokuActivity extends Activity {
         FragmentManager fgm = getFragmentManager();
         brettFrag = new BrettFragment();
         Bundle fragBun = new Bundle();
-        fragBun.putBoolean("new", getIntent().getBooleanExtra("new", false));
+        fragBun.putBoolean(VanskeligFrag.newNavn, getIntent().getBooleanExtra(VanskeligFrag.newNavn, false));
+        fragBun.putInt(VanskeligFrag.vanskNavn, getIntent().getIntExtra(VanskeligFrag.vanskNavn, 0));
         brettFrag.setArguments(fragBun);
         FragmentTransaction tran = fgm.beginTransaction();
         tran.replace(R.id.brettView, brettFrag);
         tran.replace(R.id.knappView, new KnappFragment());
         tran.commit();
 
-        getIntent().putExtra("new", false);
+        getIntent().putExtra(VanskeligFrag.newNavn, false);
     }
     public boolean sjekkSvar() {
         return brettFrag.sjekkSvar();

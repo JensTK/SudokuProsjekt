@@ -8,10 +8,11 @@
         android:layout_width="wrap_content"
         android:id="@+id/brettView"
         android:orientation="vertical"/>
+    <include layout="@layout/vertlinje"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/knappView"
         android:orientation="vertical"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 </LinearLayout>

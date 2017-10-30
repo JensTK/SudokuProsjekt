@@ -33,11 +33,12 @@ public class BrettFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_brett, container, false);
-        boolean ny = getArguments().getBoolean("new");
+        boolean ny = getArguments().getBoolean(VanskeligFrag.newNavn);
         Log.i("tagg", "Nytt spill: " + ny);
         if (ny) {
+            int vansk = getArguments().getInt(VanskeligFrag.vanskNavn);
             FilBehandler fil = new FilBehandler(getActivity());
-            fil.lesFraFil();
+            fil.lesFraFil(vansk);
             tallene = fil.getTallene();
             disabled = fil.getDisabled();
             setTall();

@@ -1,12 +1,10 @@
 package jens.sudokuprosjekt;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -29,9 +27,16 @@ public class FilBehandler {
         return disabled;
     }
 
-    public void lesFraFil() {
+    public void lesFraFil(int vansk) {
         try {
-            BufferedReader les = new BufferedReader(new InputStreamReader(act.getResources().openRawResource(R.raw.presets)));
+            InputStream is = act.getResources().openRawResource(R.raw.preset_lett);
+            if (vansk == 1) {
+                is = act.getResources().openRawResource(R.raw.preset_middels);
+            }
+            else if (vansk == 2) {
+                is = act.getResources().openRawResource(R.raw.preset_vanskelig);
+            }
+            BufferedReader les = new BufferedReader(new InputStreamReader(is));
             String line = les.readLine();
             int i = 0;
             while (line != null && i < 9) {

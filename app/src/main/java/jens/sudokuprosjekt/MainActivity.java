@@ -1,6 +1,8 @@
 package jens.sudokuprosjekt;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -22,9 +24,8 @@ public class MainActivity extends Activity {
         nyKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(".SudokuActivity");
-                intent.putExtra("new", true);
-                startActivity(intent);
+                DialogFragment frag = new VanskeligFrag();
+                frag.show(getFragmentManager(), "");
             }
         });
 
@@ -46,8 +47,6 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(".OptionsActivity"));
             }
         });
-
-        //startActivity(new Intent(".SudokuActivity"));
     }
 
     @Override

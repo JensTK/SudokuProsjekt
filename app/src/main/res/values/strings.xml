@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">SudokuProsjekt</string>
+    <string name="tittel">Sudoku!</string>
     <string name="fortsKnapp">Fortsett</string>
     <string name="nyKnapp">Nytt Spill</string>
     <string name="slettKnapp">Slett pågående spill</string>
     <string name="optKnapp">Alternativer</string>
     <string name="sjekkKnapp">Sjekk svar</string>
+    <string name="vanskeligMessage">Velg vanskelighet</string>
+    <array name="vanskeligArray">
+        <item>Lett</item>
+        <item>Middels</item>
+        <item>Vanskelig</item>
+    </array>
 </resources>
