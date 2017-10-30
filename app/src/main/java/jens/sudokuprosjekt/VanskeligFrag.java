@@ -14,6 +14,7 @@ import android.os.Bundle;
 public class VanskeligFrag extends DialogFragment {
     public static String vanskNavn = "vansk";
     public static String newNavn = "new";
+    public static String lagNavn = "lag";
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder bldr = new AlertDialog.Builder(getActivity());
@@ -21,10 +22,15 @@ public class VanskeligFrag extends DialogFragment {
         bldr.setItems(R.array.vanskeligArray, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(".SudokuActivity");
-                intent.putExtra(vanskNavn, i);
-                intent.putExtra(newNavn, true);
-                startActivity(intent);
+                if (getArguments().getBoolean(lagNavn)) {
+
+                }
+                else {
+                    Intent intent = new Intent(".SudokuActivity");
+                    intent.putExtra(vanskNavn, i);
+                    intent.putExtra(newNavn, true);
+                    startActivity(intent);
+                }
             }
         });
         return bldr.create();

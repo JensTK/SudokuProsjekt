@@ -33,28 +33,33 @@ public class BrettFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_brett, container, false);
+
+        boolean lag = getArguments().getBoolean(VanskeligFrag.lagNavn);
         boolean ny = getArguments().getBoolean(VanskeligFrag.newNavn);
+        int vansk = getArguments().getInt(VanskeligFrag.vanskNavn);
         Log.i("tagg", "Nytt spill: " + ny);
-        if (ny) {
-            int vansk = getArguments().getInt(VanskeligFrag.vanskNavn);
+        Log.i("tagg", "Vanskelighet: " + vansk);
+
+        if (ny & !lag) {
             FilBehandler fil = new FilBehandler(getActivity());
             fil.lesFraFil(vansk);
             tallene = fil.getTallene();
             disabled = fil.getDisabled();
             setTall();
         }
-        else {
+        else if (lag) {
+            Log.i("tagg", "Lage brett!");
+            for (int[] i : tallene) {
+                for (int j = 0; j < i.length; j++) {
+                    i[j] = -1;
+                }
+            }
+            setTall();
+        }
+        else if (!ny) {
             lese();
         }
         return view;
-    }
-
-    public void setTallene(int[][] tallene) {
-        this.tallene = tallene;
-    }
-
-    public void setDisabled(boolean[][] disabled) {
-        this.disabled = disabled;
     }
 
     public void lagre() {

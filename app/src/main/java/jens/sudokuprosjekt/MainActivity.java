@@ -25,6 +25,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 DialogFragment frag = new VanskeligFrag();
+                Bundle bndl = new Bundle();
+                bndl.putBoolean(VanskeligFrag.lagNavn, false);
+                frag.setArguments(bndl);
                 frag.show(getFragmentManager(), "");
             }
         });
@@ -35,7 +38,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(".SudokuActivity");
-                intent.putExtra("new", false);
+                intent.putExtra(VanskeligFrag.newNavn, false);
                 startActivity(intent);
             }
         });
@@ -45,6 +48,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(".OptionsActivity"));
+            }
+        });
+
+        Button lagKnapp = (Button) findViewById(R.id.lagKnapp);
+        lagKnapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(".LagActivity"));
             }
         });
     }

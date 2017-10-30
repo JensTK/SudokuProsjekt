@@ -12,4 +12,7 @@
         <item>Middels</item>
         <item>Vanskelig</item>
     </array>
+    <string name="lagKnapp">Lag Spillebrett</string>
+    <string name="lagreKnapp">Lagre Brett</string>
+    <string name="slettBrettKnapp">Slett Brett</string>
 </resources>
