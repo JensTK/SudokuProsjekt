@@ -3,15 +3,15 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center">
-    <fragment
+    <LinearLayout
+        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="jens.sudokuprosjekt.BrettFragment"
-        android:id="@+id/brettFrag"/>
-    <fragment
+        android:id="@+id/brettView"
+        android:orientation="vertical"/>
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:name="jens.sudokuprosjekt.KnappFragment"
-        android:id="@+id/knappFrag"/>
+        android:id="@+id/knappView"
+        android:orientation="vertical"
+        android:layout_weight="1"/>
 </LinearLayout>

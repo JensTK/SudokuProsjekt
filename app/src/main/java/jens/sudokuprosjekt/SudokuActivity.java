@@ -33,8 +33,8 @@ public class SudokuActivity extends Activity {
         fragBun.putBoolean("new", getIntent().getBooleanExtra("new", false));
         brettFrag.setArguments(fragBun);
         FragmentTransaction tran = fgm.beginTransaction();
-        tran.add(R.id.brettView, brettFrag);
-        tran.add(R.id.knappView, new KnappFragment());
+        tran.replace(R.id.brettView, brettFrag);
+        tran.replace(R.id.knappView, new KnappFragment());
         tran.commit();
 
         getIntent().putExtra("new", false);
