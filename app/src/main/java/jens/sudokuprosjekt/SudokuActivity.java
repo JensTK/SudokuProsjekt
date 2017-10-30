@@ -151,13 +151,20 @@ public class SudokuActivity extends Activity {
 
         for (int i = 0; i < 9; i++) {
             if (adapters[i] == null) {
-                adapters[i] = new tallAdapter(this, tallene[i], disabled[i]);
+                adapters[i] = new tallAdapter(this, tallene[i], disabled[i], null);
                 grids[i].setAdapter(adapters[i]);
             }
             else {
                 adapters[i].notifyDataSetChanged();
             }
         }
+    }
+    private void merkRute(int hovedRute, int rutePlass) {
+        Log.i("tagg", "merkRute(" + hovedRute + ", " + rutePlass + ")");
+        boolean[] feil = adapters[hovedRute].getFeil();
+        feil[rutePlass] = true;
+        adapters[hovedRute].setFeil(feil);
+        adapters[hovedRute].notifyDataSetChanged();
     }
 
     //Finner hvilken rad i et 3x3-nett du er på
@@ -171,6 +178,7 @@ public class SudokuActivity extends Activity {
     }
 
     public boolean sjekkSvar() {
+        boolean ret = true;
         for (int i = 0; i < 9; i++) {
             Log.i("tagg", i + " har rad " + finnRad(i) + " og søyle " + finnSøyle(i));
         }
@@ -187,8 +195,14 @@ public class SudokuActivity extends Activity {
                 //Sjekke samme ruta
                 for (int j = 0; j < talls.length; j++) {
                     if (talls[j] == tall && j != i) {
-                        Log.i("tagg", "B-konflikt: " + tall + " i boks " + t);
-                        return false;
+                        //Bare merke de som er fylt ut
+                        if (tall > 0) {
+                            Log.i("tagg", "B-konflikt: " + tall + " i boks " + t);
+                            merkRute(t, j);
+                            merkRute(t, i);
+                        }
+                        //...men returnere false uansett
+                        ret = false;
                     }
                 }
 
@@ -202,8 +216,12 @@ public class SudokuActivity extends Activity {
                         for (int k = 0; k < talla.length; k++) {
                             if ((finnRad(k) == finnRad(i) && finnRad(t) == finnRad(j)) || (finnSøyle(k) == finnSøyle(i) && finnSøyle(t) == finnSøyle(j))) {
                                 if (talla[k] == tall && k != i) {
-                                    Log.i("tagg", "R/S-konflikt: " + tall + " i boks " + t + " mot " + talla[k] + " i boks " + j);
-                                    return false;
+                                    if (tall > 0) {
+                                        Log.i("tagg", "R/S-konflikt: " + tall + " i boks " + t + " mot " + talla[k] + " i boks " + j);
+                                        merkRute(t, i);
+                                        merkRute(j, k);
+                                    }
+                                    ret = false;
                                 }
                             }
                         }
@@ -211,6 +229,6 @@ public class SudokuActivity extends Activity {
                 }
             }
         }
-        return true;
+        return ret;
     }
 }
