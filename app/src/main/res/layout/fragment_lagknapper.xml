@@ -17,9 +17,5 @@
         android:layout_height="wrap_content"
         android:text="@string/lagreKnapp"
         android:id="@+id/lagreKnapp"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/slettBrettKnapp"
-        android:id="@+id/slettBrettKnapp"/>
+   
 </LinearLayout>

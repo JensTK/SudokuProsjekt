@@ -17,4 +17,5 @@
     <string name="slettBrettKnapp">Slett Brett</string>
     <string name="velgBrett">Velg brett</string>
     <string name="navnTekst">Navn</string>
+    <string name="filFinnes">Brettet finnes fra før! Skriv et annet navn.</string>
 </resources>

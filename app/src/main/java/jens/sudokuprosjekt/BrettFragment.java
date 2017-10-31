@@ -46,19 +46,6 @@ public class BrettFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        BrettManager.lagreTilMinne(getActivity(), brettet);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        brettet = BrettManager.fortsFraMinne(getActivity());
-        setTall();
-    }
-
     private void setTall() {
         tallAdapter[] adapters = brettet.getAdaptere();
 

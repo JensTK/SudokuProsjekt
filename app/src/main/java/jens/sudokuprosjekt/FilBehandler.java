@@ -3,6 +3,7 @@ package jens.sudokuprosjekt;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -56,8 +57,15 @@ public class FilBehandler {
         }
         return ret;
     }
-    public void putBrett(Brett brett) {
+    public boolean putBrett(Brett brett) {
+        for (Brett b : brettene) {
+            if (b.getNavn().equals(brett.getNavn())) {
+                Toast.makeText(act, R.string.filFinnes, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
         brettene.add(brett);
+        return true;
     }
 
     private void lesFraFil() {

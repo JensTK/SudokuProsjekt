@@ -28,9 +28,10 @@ public class NavnFrag extends DialogFragment {
                 Brett brett = act.getBrettet();
                 brett.setNavn(tekst.getText().toString());
                 FilBehandler fil = new FilBehandler(act);
-                fil.putBrett(brett);
-                fil.skrivTilFil();
-                startActivity(new Intent(act, MainActivity.class));
+                if (fil.putBrett(brett)) {
+                    fil.skrivTilFil();
+                    startActivity(new Intent(act, MainActivity.class));
+                }
             }
         });
         return bldr2.create();

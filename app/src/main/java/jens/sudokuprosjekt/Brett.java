@@ -11,6 +11,7 @@ public class Brett {
     private tallAdapter[] adaptere = new tallAdapter[9];
     private int diff;
     private String navn;
+    private Activity act;
 
     //Lager et tomt brett
     public Brett(Activity act) {
@@ -21,6 +22,7 @@ public class Brett {
             }
             adaptere[i] = new tallAdapter(act, tall, new boolean[9], null);
         }
+        this.act = act;
     }
 
     //Lager et brett
@@ -30,6 +32,7 @@ public class Brett {
         }
         this.diff = diff;
         this.navn = navn;
+        this.act = act;
     }
 
     //Lager et brett, der tall som er fylt inn blir satt som disabled
@@ -45,6 +48,7 @@ public class Brett {
         }
         this.diff = diff;
         this.navn = navn;
+        this.act = act;
     }
 
     public tallAdapter[] getAdaptere() {

@@ -25,6 +25,7 @@ public class VelgBrettFrag extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                     Intent intent = new Intent(".SudokuActivity");
                     intent.putExtra(MainActivity.navn, navnene[i]);
+                    intent.putExtra(MainActivity.ny, true);
                     getActivity().startActivity(intent);
             }
         });

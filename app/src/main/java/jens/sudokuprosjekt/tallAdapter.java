@@ -45,8 +45,16 @@ public class tallAdapter extends BaseAdapter {
         return tallene;
     }
 
+    public void setTallene(int[] tallene) {
+        this.tallene = tallene;
+    }
+
     public boolean[] getDisabled() {
         return disabled;
+    }
+
+    public void setDisabled(boolean[] disabled) {
+        this.disabled = disabled;
     }
 
     public void setFeil(boolean[] feil) {

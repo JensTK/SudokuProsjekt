@@ -26,22 +26,29 @@ public class SudokuActivity extends Activity {
     public void onCreate(Bundle bndl) {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
+        FragmentManager fgm = getFragmentManager();
+        FragmentTransaction tran = fgm.beginTransaction();
+        tran.replace(R.id.knappView, new KnappFragment());
+        tran.commit();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (!getIntent().getBooleanExtra(MainActivity.ny, true)) {
             brettet = BrettManager.fortsFraMinne(this);
         }
         else {
             brettet = new FilBehandler(this).getBrett(getIntent().getStringExtra(MainActivity.navn));
         }
-
         BrettManager.lagBrettFragment(this, brettet);
-
-        FragmentManager fgm = getFragmentManager();
-        FragmentTransaction tran = fgm.beginTransaction();
-        tran.replace(R.id.knappView, new KnappFragment());
-        tran.commit();
-
         getIntent().putExtra(MainActivity.ny, false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BrettManager.lagreTilMinne(this, brettet);
     }
 
     public Brett getBrettet() {
