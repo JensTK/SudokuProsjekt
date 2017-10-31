@@ -30,7 +30,7 @@ public class LagKnappFragment extends Fragment {
         sjekkKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                act.sjekkSvar();
+                act.getBrettet().sjekkSvar();
             }
         });
 
@@ -40,7 +40,7 @@ public class LagKnappFragment extends Fragment {
             public void onClick(View view) {
                 DialogFragment frag = new VanskeligFrag();
                 Bundle bndl = new Bundle();
-                bndl.putBoolean(VanskeligFrag.lagNavn, true);
+                bndl.putBoolean(MainActivity.lag, true);
                 frag.setArguments(bndl);
                 frag.show(getFragmentManager(), "");
             }

@@ -30,12 +30,7 @@ public class KnappFragment extends Fragment {
         sjekkKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (act.getBrettet().sjekkSvar()) {
-                    Toast.makeText(act, "Riktig!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(act, "Feil", Toast.LENGTH_SHORT).show();
-                }
+                act.getBrettet().sjekkSvar();
             }
         });
         return view;

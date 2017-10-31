@@ -15,6 +15,14 @@ import android.widget.Button;
 public class MainActivity extends Activity {
     private Button fortsKnapp;
 
+    public final static String tall = "tall";
+    public final static String disable = "dis";
+    public final static String navn = "navn";
+    public final static String diff = "vansk";
+    public final static String ny = "new";
+    public final static String lag = "lag";
+    public final static String tagg = "tagg";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +34,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 DialogFragment frag = new VanskeligFrag();
                 Bundle bndl = new Bundle();
-                bndl.putBoolean(VanskeligFrag.lagNavn, false);
+                bndl.putBoolean(lag, false);
                 frag.setArguments(bndl);
                 frag.show(getFragmentManager(), "");
             }
@@ -38,7 +46,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(".SudokuActivity");
-                intent.putExtra(VanskeligFrag.newNavn, false);
+                intent.putExtra(ny, false);
                 startActivity(intent);
             }
         });
@@ -62,10 +70,10 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
-        Log.i("tagg", "MainActivity.onResume()");
+        Log.i(MainActivity.tagg, "MainActivity.onResume()");
         super.onResume();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.i("tagg", "Rute 0 = " + prefs.getString("0", null));
+        Log.i(MainActivity.tagg, "Rute 0 = " + prefs.getString("0", null));
         if (prefs.getString("0", null) == null) {
             fortsKnapp.setEnabled(false);
             fortsKnapp.setFocusable(false);

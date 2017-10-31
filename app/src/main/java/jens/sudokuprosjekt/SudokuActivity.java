@@ -27,11 +27,11 @@ public class SudokuActivity extends Activity {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
 
-        if (!getIntent().getBooleanExtra(VanskeligFrag.newNavn, true)) {
+        if (!getIntent().getBooleanExtra(MainActivity.ny, true)) {
             brettet = BrettManager.fortsFraMinne(this);
         }
         else {
-            brettet = BrettManager.lesFraFil(this, "");
+            brettet = new FilBehandler(this).getBrett(getIntent().getStringExtra(MainActivity.navn));
         }
 
         BrettManager.lagBrettFragment(this, brettet);
@@ -41,7 +41,7 @@ public class SudokuActivity extends Activity {
         tran.replace(R.id.knappView, new KnappFragment());
         tran.commit();
 
-        getIntent().putExtra(VanskeligFrag.newNavn, false);
+        getIntent().putExtra(MainActivity.ny, false);
     }
 
     public Brett getBrettet() {

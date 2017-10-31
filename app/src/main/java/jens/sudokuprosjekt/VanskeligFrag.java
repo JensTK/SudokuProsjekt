@@ -6,15 +6,16 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 /**
  * Created by Jens on 30.10.2017.
  */
 
 public class VanskeligFrag extends DialogFragment {
-    public static String vanskNavn = "vansk";
-    public static String newNavn = "new";
-    public static String lagNavn = "lag";
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder bldr = new AlertDialog.Builder(getActivity());
@@ -22,14 +23,17 @@ public class VanskeligFrag extends DialogFragment {
         bldr.setItems(R.array.vanskeligArray, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (getArguments().getBoolean(lagNavn)) {
-
+                if (getArguments().getBoolean(MainActivity.lag)) {
+                    final LagActivity act = (LagActivity) getActivity();
+                    final Brett brett = act.getBrettet();
+                    brett.setDiff(i);
+                    DialogFragment frag = new NavnFrag();
+                    frag.show(getFragmentManager(), "");
                 }
                 else {
-                    Intent intent = new Intent(".SudokuActivity");
-                    intent.putExtra(vanskNavn, i);
-                    intent.putExtra(newNavn, true);
-                    startActivity(intent);
+                    DialogFragment frag = new VelgBrettFrag();
+                    frag.setArguments(getArguments());
+                    frag.show(getFragmentManager(), "");
                 }
             }
         });

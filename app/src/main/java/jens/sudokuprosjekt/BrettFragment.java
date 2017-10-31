@@ -35,10 +35,12 @@ public class BrettFragment extends Fragment {
         boolean[][] disabled = new boolean[9][9];
 
         for (int i = 0; i < 9; i++) {
-            tallene[i] = getArguments().getIntArray("tall" + i);
-            disabled[i] = getArguments().getBooleanArray("dis" + i);
+            tallene[i] = getArguments().getIntArray(MainActivity.tall + i);
+            disabled[i] = getArguments().getBooleanArray(MainActivity.disable + i);
         }
-        brettet = new Brett(getActivity(), tallene, disabled);
+        int diff = getArguments().getInt(MainActivity.diff);
+        String navn = getArguments().getString(MainActivity.navn);
+        brettet = new Brett(getActivity(), tallene, disabled, diff, navn);
         setTall();
 
         return view;

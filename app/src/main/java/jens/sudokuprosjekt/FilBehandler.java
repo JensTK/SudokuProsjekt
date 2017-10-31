@@ -7,90 +7,117 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by jenstobiaskaarud on 10/23/17.
  */
 
 public class FilBehandler {
-    private int[][] tallene = new int[9][9];
-    private boolean[][] disabled = new boolean[9][9];
+    private final static String filNavn = "brett";
+    private ArrayList<Brett> brettene;
     private Activity act;
-    private final String filNavn = "brett";
 
     public FilBehandler(Activity act) {
         this.act = act;
+        lesFraFil();
     }
 
-    public int[][] getTallene() {
-        return tallene;
+    public ArrayList<Brett> getBrettene() {
+        return brettene;
     }
-    public boolean[][] getDisabled() {
-        return disabled;
+    public ArrayList<Brett> getBrettene(int vansk) {
+        ArrayList<Brett> ret = new ArrayList<>();
+        for (Brett b : brettene) {
+            if (b.getDiff() == vansk) {
+                ret.add(b);
+            }
+        }
+        return ret;
     }
-    public void setTallene(int[][] tallene) {
-        this.tallene = tallene;
+    public Brett getBrett(String navn) {
+        for (Brett b : brettene) {
+            if (b.getNavn().equals(navn)) {
+                return b;
+            }
+        }
+        return null;
     }
-    public void setDisabled(boolean[][] disabled) {
-        this.disabled = disabled;
+    public String[] getNavnene(int vansk) {
+        ArrayList<Brett> brt = getBrettene(vansk);
+        String[] ret = new String[brt.size()];
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = brt.get(i).getNavn();
+        }
+        return ret;
+    }
+    public void putBrett(Brett brett) {
+        brettene.add(brett);
     }
 
-    public void lesFraFil(int vansk) {
+    private void lesFraFil() {
+        brettene = new ArrayList<>();
         try {
-            InputStream is = act.getResources().openRawResource(R.raw.preset_lett);
-            if (vansk == 1) {
-                is = act.getResources().openRawResource(R.raw.preset_middels);
-            }
-            else if (vansk == 2) {
-                is = act.getResources().openRawResource(R.raw.preset_vanskelig);
-            }
-            BufferedReader les = new BufferedReader(new InputStreamReader(is));
-            String line = les.readLine();
-            int i = 0;
-            while (line != null && i < 9) {
-                tallene[i] = lesTallFraString(line);
-                line = les.readLine();
-                i++;
-            }
-            for (int j = 0; j < tallene.length; j++) {
-                for (int k = 0; k < tallene[j].length; k++) {
-                    if (tallene[j][k] >= 0) {
-                        disabled[j][k] = true;
-                    }
+            BufferedReader read = new BufferedReader(new InputStreamReader(act.openFileInput(filNavn)));
+            String linje = "";
+            while (linje != null) {
+                while (!linje.equals("---")) {
+                    linje = read.readLine();
                 }
+                String navn = read.readLine();
+                int diff = Integer.parseInt(read.readLine());
+                int[][] tallene = new int[9][9];
+                for (int i = 0; i < 9; i++) {
+                    tallene[i] = lesTallFraString(read.readLine());
+                }
+                brettene.add(new Brett(act, tallene, diff, navn));
+                linje = read.readLine();
             }
+            read.close();
         }
-        catch (Exception e) {
-            Log.i("tagg", e.toString());
+        catch (NullPointerException | IOException e) {
+            Log.e(MainActivity.tagg, "lesFraFil(): " + e.toString());
         }
     }
-    public boolean skrivTilFil(int vansk, String navn) {
+
+    public boolean skrivTilFil() {
         try {
-            FileOutputStream fil = act.openFileOutput(filNavn, Context.MODE_APPEND);
+            FileOutputStream fil = act.openFileOutput(filNavn, Context.MODE_PRIVATE);
             PrintWriter wrt = new PrintWriter(fil);
-            wrt.println("<navn>:");
-            wrt.println(navn);
-            wrt.println("<diff>:");
-            wrt.println(vansk);
-            for (int[] i : tallene) {
-                String s = "";
-                for (int j : i) {
-                    s += j + ",";
+            for (Brett b : brettene) {
+                if (b != null) {
+                    wrt.println("---");
+                    wrt.println(b.getNavn());
+                    wrt.println(b.getDiff());
+                    for (tallAdapter i : b.getAdaptere()) {
+                        String s = "";
+                        for (int j : i.getTallene()) {
+                            s += j + ",";
+                        }
+                        wrt.println(s);
+                    }
+                    wrt.flush();
                 }
-                wrt.println(s);
+                else {
+                    Log.e(MainActivity.tagg, "skrivTilFil(): brettet == null");
+                }
             }
-            wrt.println();
+            wrt.close();
+            fil.close();
             return true;
         }
-        catch (FileNotFoundException e) {
-            Log.i("tagg", e.toString());
+        catch (IOException e) {
+            Log.i(MainActivity.tagg, e.toString());
             return false;
         }
     }
-    private int[] lesTallFraString(String linje) {
+
+    private static int[] lesTallFraString(String linje) {
         String[] les = linje.split(",");
         int[] ret = new int[9];
         for (int j = 0; j < les.length; j++) {
@@ -98,7 +125,7 @@ public class FilBehandler {
                 ret[j] = Integer.parseInt(String.valueOf(les[j]));
             }
             catch (Exception e) {
-                Log.i("tagg", e.toString());
+                Log.i(MainActivity.tagg, e.toString());
             }
         }
         return ret;

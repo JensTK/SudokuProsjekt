@@ -10,7 +10,6 @@ import android.os.Bundle;
  */
 
 public class LagActivity extends Activity {
-    private BrettFragment brettFrag;
     private Brett brettet;
 
     @Override
@@ -18,27 +17,16 @@ public class LagActivity extends Activity {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
 
+        brettet = new Brett(this);
+        BrettManager.lagBrettFragment(this, brettet);
+
         FragmentManager fgm = getFragmentManager();
-        brettFrag = new BrettFragment();
-        Bundle fragBun = new Bundle();
-        fragBun.putBoolean(VanskeligFrag.newNavn, true);
-        fragBun.putInt(VanskeligFrag.vanskNavn, 0);
-        fragBun.putBoolean(VanskeligFrag.lagNavn, true);
-        brettFrag.setArguments(fragBun);
         FragmentTransaction tran = fgm.beginTransaction();
-        tran.replace(R.id.brettView, brettFrag);
         tran.replace(R.id.knappView, new LagKnappFragment());
         tran.commit();
-
-        getIntent().putExtra(VanskeligFrag.newNavn, false);
     }
-    public boolean sjekkSvar() {
-        return brettet.sjekkSvar();
+    public Brett getBrettet() {
+        return brettet;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        BrettManager.lagreTilMinne(brettFrag.getActivity(), brettet);
-    }
 }

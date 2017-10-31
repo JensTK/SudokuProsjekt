@@ -104,7 +104,7 @@ public class tallAdapter extends BaseAdapter {
         nyEdit.setPadding(0, 0, 0, 0);
         if (feil[i]) {
             nyEdit.setBackgroundColor(Color.RED);
-            //Log.i("tagg", "Setter farge på " + i);
+            //Log.i(MainActivity.tagg, "Setter farge på " + i);
             CountDownTimer timer = new CountDownTimer(2000, 2000) {
                 @Override
                 public void onTick(long l) {}
@@ -126,7 +126,7 @@ public class tallAdapter extends BaseAdapter {
                 String text = nyEdit.getText().toString();
                 if (! text.equals("")) {
                     int tall = Integer.parseInt(nyEdit.getText().toString());
-                    //Log.i("tagg", "Endret: " + tall);
+                    //Log.i(MainActivity.tagg, "Endret: " + tall);
                     tallene[i] = tall;
                 }
                 else {
