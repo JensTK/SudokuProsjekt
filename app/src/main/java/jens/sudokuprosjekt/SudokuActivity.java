@@ -20,35 +20,31 @@ import java.util.Random;
  */
 
 public class SudokuActivity extends Activity {
-    private BrettFragment brettFrag;
+    private Brett brettet;
 
     @Override
     public void onCreate(Bundle bndl) {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
 
+        if (!getIntent().getBooleanExtra(VanskeligFrag.newNavn, true)) {
+            brettet = BrettManager.fortsFraMinne(this);
+        }
+        else {
+            brettet = BrettManager.lesFraFil(this, "");
+        }
+
+        BrettManager.lagBrettFragment(this, brettet);
+
         FragmentManager fgm = getFragmentManager();
-        brettFrag = new BrettFragment();
-        Bundle fragBun = new Bundle();
-        fragBun.putBoolean(VanskeligFrag.newNavn, getIntent().getBooleanExtra(VanskeligFrag.newNavn, false));
-        fragBun.putInt(VanskeligFrag.vanskNavn, getIntent().getIntExtra(VanskeligFrag.vanskNavn, 0));
-        brettFrag.setArguments(fragBun);
         FragmentTransaction tran = fgm.beginTransaction();
-        tran.replace(R.id.brettView, brettFrag);
         tran.replace(R.id.knappView, new KnappFragment());
         tran.commit();
 
         getIntent().putExtra(VanskeligFrag.newNavn, false);
     }
-    public boolean sjekkSvar() {
-        return brettFrag.sjekkSvar();
+
+    public Brett getBrettet() {
+        return brettet;
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        brettFrag.lagre();
-    }
-
-
 }

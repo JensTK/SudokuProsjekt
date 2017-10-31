@@ -1,11 +1,15 @@
 package jens.sudokuprosjekt;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Created by jenstobiaskaarud on 10/23/17.
@@ -15,6 +19,7 @@ public class FilBehandler {
     private int[][] tallene = new int[9][9];
     private boolean[][] disabled = new boolean[9][9];
     private Activity act;
+    private final String filNavn = "brett";
 
     public FilBehandler(Activity act) {
         this.act = act;
@@ -25,6 +30,12 @@ public class FilBehandler {
     }
     public boolean[][] getDisabled() {
         return disabled;
+    }
+    public void setTallene(int[][] tallene) {
+        this.tallene = tallene;
+    }
+    public void setDisabled(boolean[][] disabled) {
+        this.disabled = disabled;
     }
 
     public void lesFraFil(int vansk) {
@@ -54,6 +65,29 @@ public class FilBehandler {
         }
         catch (Exception e) {
             Log.i("tagg", e.toString());
+        }
+    }
+    public boolean skrivTilFil(int vansk, String navn) {
+        try {
+            FileOutputStream fil = act.openFileOutput(filNavn, Context.MODE_APPEND);
+            PrintWriter wrt = new PrintWriter(fil);
+            wrt.println("<navn>:");
+            wrt.println(navn);
+            wrt.println("<diff>:");
+            wrt.println(vansk);
+            for (int[] i : tallene) {
+                String s = "";
+                for (int j : i) {
+                    s += j + ",";
+                }
+                wrt.println(s);
+            }
+            wrt.println();
+            return true;
+        }
+        catch (FileNotFoundException e) {
+            Log.i("tagg", e.toString());
+            return false;
         }
     }
     private int[] lesTallFraString(String linje) {

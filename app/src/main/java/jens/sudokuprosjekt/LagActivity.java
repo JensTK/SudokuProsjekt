@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 public class LagActivity extends Activity {
     private BrettFragment brettFrag;
+    private Brett brettet;
 
     @Override
     public void onCreate(Bundle bndl) {
@@ -32,12 +33,12 @@ public class LagActivity extends Activity {
         getIntent().putExtra(VanskeligFrag.newNavn, false);
     }
     public boolean sjekkSvar() {
-        return brettFrag.sjekkSvar();
+        return brettet.sjekkSvar();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        brettFrag.lagre();
+        BrettManager.lagreTilMinne(brettFrag.getActivity(), brettet);
     }
 }
