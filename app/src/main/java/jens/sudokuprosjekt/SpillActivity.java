@@ -68,7 +68,10 @@ public class SpillActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String[] tekst = getResources().getStringArray(R.array.hjelpTekst);
-                String txt = tekst[0] + "\n\n" + tekst[1] + "\n\n" + tekst[2];
+                String txt = "";
+                for (String s : tekst) {
+                    txt += s + "\n\n";
+                }
                 new AlertDialog.Builder(SpillActivity.this)
                         .setMessage(txt)
                         .setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {

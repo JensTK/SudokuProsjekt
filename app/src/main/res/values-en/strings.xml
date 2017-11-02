@@ -38,8 +38,9 @@
     <string name="hjelpKnapp">Help</string>
     <array name="hjelpTekst">
         <item>Sudoku-app by Jens Tobias Kaarud.</item>
-        <item>Boards are from "http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html".</item>
+        <item>Boards are from \"http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html\".</item>
         <item>Long-press a field to mark it, if you think it is incorrect. You can also press the hint button to see which squares break the rules.</item>
+        <item>Ongoing games are saved automatically, so you don\'t have to worry about losing your progress!</item>
     </array>
 
 </resources>

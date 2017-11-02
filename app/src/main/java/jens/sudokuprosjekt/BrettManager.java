@@ -46,7 +46,7 @@ public class BrettManager {
             for (int j = 0; j < les3.length; j++) {
                 if (les3[j].equals("1")) {
                     merket[i][j] = true;
-                    Log.i(MainActivity.tagg, "Lest merket: " + i + ", " + j);
+//                    Log.i(MainActivity.tagg, "Lest merket: " + i + ", " + j);
                 }
                 else if (les3[j].equals("0")) {
                     merket[i][j] = false;
@@ -94,16 +94,15 @@ public class BrettManager {
                     lagre3 += "0,";
                 }
             }
-            Log.i(MainActivity.tagg, "Merker: " + i + " - " + lagre3);
+//            Log.i(MainActivity.tagg, "Merker: " + i + " - " + lagre3);
             edit.putString(MainActivity.merket + i, lagre3);
         }
         edit.apply();
     }
 
-    public static BrettFragment lagBrettFragment(Activity act, Brett brett) {
+    public static BrettFragment lagBrettFragment(Activity act) {
         FragmentManager fgm = act.getFragmentManager();
         BrettFragment brettFrag = new BrettFragment();
-        brettFrag.setBrettet(brett);
         FragmentTransaction tran = fgm.beginTransaction();
         tran.replace(R.id.brettView, brettFrag);
         tran.commit();

@@ -134,8 +134,9 @@ public class tallAdapter extends BaseAdapter {
         nyEdit.setFilters(filts);
         nyEdit.setSelectAllOnFocus(true);
         nyEdit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
-        nyEdit.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        nyEdit.setImeOptions(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         nyEdit.setPadding(0, 0, 0, 0);
+
         if (feil[i]) {
             nyEdit.setBackgroundColor(Color.RED);
             Log.i(MainActivity.tagg, "Setter farge på " + i);
@@ -184,7 +185,7 @@ public class tallAdapter extends BaseAdapter {
                     nyEdit.setBackgroundColor(Color.YELLOW);
                     merket[i] = true;
                 }
-                Log.i(MainActivity.tagg, Arrays.toString(merket));
+//                Log.i(MainActivity.tagg, Arrays.toString(merket));
                 return true;
             }
         });

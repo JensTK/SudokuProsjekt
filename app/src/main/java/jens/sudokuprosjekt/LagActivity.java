@@ -18,7 +18,9 @@ public class LagActivity extends Activity {
         setContentView(R.layout.activity_sudoku);
 
         Brett brettet = new Brett(this);
-        brettFrag = BrettManager.lagBrettFragment(this, brettet);
+        BrettManager.lagreTilMinne(this, brettet);
+
+        brettFrag = BrettManager.lagBrettFragment(this);
 
         FragmentManager fgm = getFragmentManager();
         FragmentTransaction tran = fgm.beginTransaction();

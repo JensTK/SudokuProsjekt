@@ -18,28 +18,27 @@ import java.util.Random;
 public class VelgBrettFrag extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final FilBehandler filer = new FilBehandler(getActivity());
         final int vansk = getArguments().getInt(MainActivity.diff);
         Log.i(MainActivity.tagg, "Valgt vansk: " + vansk);
-        final String[] navnene = new FilBehandler(getActivity()).getNavnene(vansk);
+        final String[] navnene = filer.getNavnene(vansk);
         final AlertDialog.Builder bldr = new AlertDialog.Builder(getActivity());
         bldr.setTitle(R.string.velgBrett);
         bldr.setItems(navnene, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(".SudokuActivity");
-                    intent.putExtra(MainActivity.navn, navnene[i]);
-                    intent.putExtra(MainActivity.ny, true);
-                    getActivity().startActivity(intent);
+                Brett brettet = filer.getBrett(navnene[i]);
+                BrettManager.lagreTilMinne(getActivity(), brettet);
+                getActivity().startActivity(new Intent(".SudokuActivity"));
             }
         });
         bldr.setPositiveButton(getString(R.string.tilfBrett), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Random rand = new Random();
-                Intent intent = new Intent(".SudokuActivity");
-                intent.putExtra(MainActivity.navn, navnene[rand.nextInt(navnene.length)]);
-                intent.putExtra(MainActivity.ny, true);
-                getActivity().startActivity(intent);
+                Brett brettet = filer.getBrett(navnene[rand.nextInt(navnene.length)]);
+                BrettManager.lagreTilMinne(getActivity(), brettet);
+                getActivity().startActivity(new Intent((".SudokuActivity")));
             }
         });
         return bldr.create();

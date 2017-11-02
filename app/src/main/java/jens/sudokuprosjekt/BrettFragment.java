@@ -20,24 +20,20 @@ public class BrettFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_brett, container, false);
-        if (!getActivity().getIntent().getBooleanExtra(MainActivity.ny, true)) {
-            brettet = BrettManager.fortsFraMinne(getActivity());
-        }
-        else {
-            brettet = new FilBehandler(getActivity()).getBrett(getActivity().getIntent().getStringExtra(MainActivity.navn));
-        }
-        getActivity().getIntent().putExtra(MainActivity.ny, false);
-        setTall();
         return view;
     }
+
     @Override
     public void onPause() {
         super.onPause();
         BrettManager.lagreTilMinne(getActivity(), brettet);
     }
 
-    public void setBrettet(Brett brettet) {
-        this.brettet = brettet;
+    @Override
+    public void onResume() {
+        super.onResume();
+        brettet = BrettManager.fortsFraMinne(getActivity());
+        setTall();
     }
 
     public Brett getBrettet() {
@@ -65,5 +61,4 @@ public class BrettFragment extends Fragment {
             grids[i].setAdapter(adapters[i]);
         }
     }
-
 }

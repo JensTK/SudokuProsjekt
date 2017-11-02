@@ -26,18 +26,8 @@ public class Brett {
             for (int j = 0; j < tall.length; j++) {
                 tall[j] = -1;
             }
-            adaptere[i] = new tallAdapter(act, tall, new boolean[9], null);
+            adaptere[i] = new tallAdapter(act, tall, new boolean[9], new boolean[9], null);
         }
-        this.act = act;
-    }
-
-    //Lager et brett
-    public Brett(Activity act, int[][] tallene, boolean[][] disabled, int diff, String navn) {
-        for (int i = 0; i < adaptere.length; i++) {
-            adaptere[i] = new tallAdapter(act, tallene[i], disabled[i], null);
-        }
-        this.diff = diff;
-        this.navn = navn;
         this.act = act;
     }
 

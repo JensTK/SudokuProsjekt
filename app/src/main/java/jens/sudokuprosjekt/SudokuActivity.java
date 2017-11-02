@@ -35,14 +35,7 @@ public class SudokuActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Brett brettet;
-        if (!getIntent().getBooleanExtra(MainActivity.ny, true)) {
-            brettet = BrettManager.fortsFraMinne(this);
-        }
-        else {
-            brettet = new FilBehandler(this).getBrett(getIntent().getStringExtra(MainActivity.navn));
-        }
-        brettFrag = BrettManager.lagBrettFragment(this, brettet);
+        brettFrag = BrettManager.lagBrettFragment(this);
     }
 
     public BrettFragment getBrettFrag() {
