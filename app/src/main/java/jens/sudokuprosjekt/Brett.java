@@ -3,6 +3,8 @@ package jens.sudokuprosjekt;
 import android.app.Activity;
 import android.util.Log;
 
+import java.util.Arrays;
+
 /**
  * Created by jenstobiaskaarud on 10/31/17.
  */
@@ -12,6 +14,10 @@ public class Brett {
     private int diff;
     private String navn;
     private Activity act;
+
+    public enum feilType {
+        TOMME_RUTER, FEIL_TALL, RIKTIG
+    }
 
     //Lager et tomt brett
     public Brett(Activity act) {
@@ -29,6 +35,16 @@ public class Brett {
     public Brett(Activity act, int[][] tallene, boolean[][] disabled, int diff, String navn) {
         for (int i = 0; i < adaptere.length; i++) {
             adaptere[i] = new tallAdapter(act, tallene[i], disabled[i], null);
+        }
+        this.diff = diff;
+        this.navn = navn;
+        this.act = act;
+    }
+
+    //Lager et brett med gule merker
+    public Brett(Activity act, int[][] tallene, boolean[][] disabled, boolean[][] merket, int diff, String navn) {
+        for (int i = 0; i < adaptere.length; i++) {
+            adaptere[i] = new tallAdapter(act, tallene[i], disabled[i], merket[i], null);
         }
         this.diff = diff;
         this.navn = navn;
@@ -71,8 +87,17 @@ public class Brett {
         this.navn = navn;
     }
 
+    public boolean erFylt() {
+        for (tallAdapter t : adaptere) {
+            if (!t.erFylt()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void merkRuter(boolean[][] feil) {
-        //Log.i(MainActivity.tagg, "merkRuter(" + hovedRute + ")");
+        //Log.i(MainActivity.tagg, "merkRuter()");
         for (int i = 0; i < adaptere.length; i++) {
             adaptere[i].setFeil(feil[i]);
             adaptere[i].notifyDataSetChanged();
@@ -89,9 +114,10 @@ public class Brett {
         return i - (finnRad(i) * 3);
     }
 
-    public boolean sjekkSvar() {
+    public feilType sjekkSvar(boolean merk) {
+        feilType ret = feilType.RIKTIG;
+
         boolean[][] feil = new boolean[9][9];
-        boolean ret = true;
 
         for (int t = 0; t < adaptere.length; t++) {
 
@@ -110,7 +136,7 @@ public class Brett {
                             feil[t][i] = true;
                         }
                         //...men returnere false uansett
-                        ret = false;
+                        ret = feilType.FEIL_TALL;
                     }
                 }
 
@@ -129,7 +155,7 @@ public class Brett {
                                         feil[j][k] = true;
                                         feil[t][i] = true;
                                     }
-                                    ret = false;
+                                    ret = feilType.FEIL_TALL;
                                 }
                             }
                         }
@@ -137,7 +163,20 @@ public class Brett {
                 }
             }
         }
-        merkRuter(feil);
+        if (!erFylt()) {
+            ret = feilType.TOMME_RUTER;
+        }
+        if (merk) {
+            merkRuter(feil);
+        }
         return ret;
+    }
+
+    @Override
+    public String toString() {
+        return "Brett{" +
+                "diff=" + diff +
+                ", navn='" + navn + '\'' +
+                '}';
     }
 }

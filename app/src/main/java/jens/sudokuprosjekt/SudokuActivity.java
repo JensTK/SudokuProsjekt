@@ -20,7 +20,7 @@ import java.util.Random;
  */
 
 public class SudokuActivity extends Activity {
-    private Brett brettet;
+    private BrettFragment brettFrag;
 
     @Override
     public void onCreate(Bundle bndl) {
@@ -35,23 +35,17 @@ public class SudokuActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        Brett brettet;
         if (!getIntent().getBooleanExtra(MainActivity.ny, true)) {
             brettet = BrettManager.fortsFraMinne(this);
         }
         else {
             brettet = new FilBehandler(this).getBrett(getIntent().getStringExtra(MainActivity.navn));
         }
-        BrettManager.lagBrettFragment(this, brettet);
-        getIntent().putExtra(MainActivity.ny, false);
+        brettFrag = BrettManager.lagBrettFragment(this, brettet);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        BrettManager.lagreTilMinne(this, brettet);
-    }
-
-    public Brett getBrettet() {
-        return brettet;
+    public BrettFragment getBrettFrag() {
+        return brettFrag;
     }
 }

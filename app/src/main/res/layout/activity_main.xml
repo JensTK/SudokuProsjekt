@@ -39,4 +39,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/optKnapp"
         android:text="@string/optKnapp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hjelpKnapp"
+        android:text="@string/hjelpKnapp"/>
 </LinearLayout>

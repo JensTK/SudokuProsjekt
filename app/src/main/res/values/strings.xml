@@ -1,21 +1,54 @@
 <resources>
     <string name="app_name">SudokuProsjekt</string>
     <string name="tittel">Sudoku!</string>
+
     <string name="fortsKnapp">Fortsett</string>
-    <string name="nyKnapp">Nytt Spill</string>
+    <string name="nyKnapp">Nytt spill</string>
     <string name="slettKnapp">Slett pågående spill</string>
     <string name="optKnapp">Alternativer</string>
-    <string name="sjekkKnapp">Sjekk svar</string>
+    <string name="sjekkKnapp">Hint</string>
+    <string name="submitKnapp">Send svar</string>
+
     <string name="vanskeligMessage">Velg vanskelighet</string>
     <array name="vanskeligArray">
         <item>Lett</item>
         <item>Middels</item>
         <item>Vanskelig</item>
     </array>
-    <string name="lagKnapp">Lag Spillebrett</string>
-    <string name="lagreKnapp">Lagre Brett</string>
-    <string name="slettBrettKnapp">Slett Brett</string>
+
+    <string name="lagKnapp">Lag spillebrett</string>
+    <string name="lagreKnapp">Lagre brett</string>
+    <string name="slettBrettKnapp">Slett brett</string>
     <string name="velgBrett">Velg brett</string>
     <string name="navnTekst">Navn</string>
     <string name="filFinnes">Brettet finnes fra før! Skriv et annet navn.</string>
+    <string name="lettPresNavn">Standard Lett</string>
+    <string name="medPresNavn">Standard Middels</string>
+    <string name="diffPresNavn">Standard Vanskelig</string>
+    <string name="vantString">Du vant!</string>
+    <string name="hovedMenyKnapp">Til hovedmenyen</string>
+
+    <string name="feilTallMsg">Du har feil tall et sted! Bruk hintknappen for å finne feilen.</string>
+    <string name="tomRuteMsg">Du må fylle inn alle rutene!</string>
+
+    <string name="slettAlleKnapp">Slett alle skapte brett</string>
+    <string name="sikkerMelding">Er du sikker?</string>
+    <string name="ja">Ja</string>
+    <string name="avbryt">Avbryt</string>
+    <string name="ok">OK</string>
+
+    <string name="tilfBrett">Tilfeldig brett</string>
+    <string name="byttSprak">Velg språk</string>
+
+    <array name="spraak">
+        <item>Norsk</item>
+        <item>English</item>
+    </array>
+
+    <string name="hjelpKnapp">Hjelp</string>
+    <array name="hjelpTekst">
+        <item>Sudoku-app laget av Jens Tobias Kaarud.</item>
+        <item>Brettene er hentet fra "http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html".</item>
+        <item>Hold på et tall for å merke det, hvis du tror det er feil. Du kan også trykke på "hint", og appen vil vise deg hvilke tall som bryter reglene.</item>
+    </array>
 </resources>

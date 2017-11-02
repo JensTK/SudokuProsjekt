@@ -2,6 +2,7 @@ package jens.sudokuprosjekt;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -18,6 +19,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 
+import java.util.Arrays;
+
 /**
  * Created by Jens on 22.10.2017.
  */
@@ -27,6 +30,7 @@ public class tallAdapter extends BaseAdapter {
     private int[] tallene;
     private boolean[] disabled;
     private boolean[] feil = new boolean[9];
+    private boolean[] merket = new boolean[9];
     private EditText[] editTexts = new EditText[9];
 
     public tallAdapter(Context cont) {
@@ -39,6 +43,15 @@ public class tallAdapter extends BaseAdapter {
         if (feil != null) {
             this.feil = feil;
         }
+    }
+    public tallAdapter(Context cont, int[] tallene, boolean[] disabled, boolean[] merket, @Nullable boolean[] feil) {
+        this.cont = cont;
+        this.tallene = tallene;
+        this.disabled = disabled;
+        if (feil != null) {
+            this.feil = feil;
+        }
+        this.merket = merket;
     }
 
     public int[] getTallene() {
@@ -63,6 +76,19 @@ public class tallAdapter extends BaseAdapter {
 
     public boolean[] getFeil() {
         return feil;
+    }
+
+    public boolean[] getMerket() {
+        return merket;
+    }
+
+    public boolean erFylt() {
+        for (EditText e : editTexts) {
+            if (e.getText().toString().equals("")) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -112,7 +138,7 @@ public class tallAdapter extends BaseAdapter {
         nyEdit.setPadding(0, 0, 0, 0);
         if (feil[i]) {
             nyEdit.setBackgroundColor(Color.RED);
-            //Log.i(MainActivity.tagg, "Setter farge på " + i);
+            Log.i(MainActivity.tagg, "Setter farge på " + i);
             CountDownTimer timer = new CountDownTimer(2000, 2000) {
                 @Override
                 public void onTick(long l) {}
@@ -122,6 +148,9 @@ public class tallAdapter extends BaseAdapter {
                 }
             };
             timer.start();
+        }
+        if (merket[i]) {
+            nyEdit.setBackgroundColor(Color.YELLOW);
         }
 
         nyEdit.addTextChangedListener(new TextWatcher() {
@@ -140,6 +169,23 @@ public class tallAdapter extends BaseAdapter {
                 else {
                     tallene[i] = -1;
                 }
+            }
+        });
+
+        nyEdit.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int farge = ((ColorDrawable)nyEdit.getBackground()).getColor();
+                if (farge == Color.YELLOW) {
+                    nyEdit.setBackgroundColor(Color.TRANSPARENT);
+                    merket[i] = false;
+                }
+                else if (farge == Color.TRANSPARENT || farge == Color.RED) {
+                    nyEdit.setBackgroundColor(Color.YELLOW);
+                    merket[i] = true;
+                }
+                Log.i(MainActivity.tagg, Arrays.toString(merket));
+                return true;
             }
         });
         editTexts[i] = nyEdit;

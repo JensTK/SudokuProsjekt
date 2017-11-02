@@ -1,18 +1,12 @@
 package jens.sudokuprosjekt;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-
-import java.util.Random;
 
 /**
  * Created by Jens on 30.10.2017.
@@ -22,31 +16,35 @@ public class BrettFragment extends Fragment {
     private Brett brettet;
     private View view;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_brett, container, false);
-        int[][] tallene = new int[9][9];
-        boolean[][] disabled = new boolean[9][9];
-
-        for (int i = 0; i < 9; i++) {
-            tallene[i] = getArguments().getIntArray(MainActivity.tall + i);
-            disabled[i] = getArguments().getBooleanArray(MainActivity.disable + i);
+        if (!getActivity().getIntent().getBooleanExtra(MainActivity.ny, true)) {
+            brettet = BrettManager.fortsFraMinne(getActivity());
         }
-        int diff = getArguments().getInt(MainActivity.diff);
-        String navn = getArguments().getString(MainActivity.navn);
-        brettet = new Brett(getActivity(), tallene, disabled, diff, navn);
+        else {
+            brettet = new FilBehandler(getActivity()).getBrett(getActivity().getIntent().getStringExtra(MainActivity.navn));
+        }
+        getActivity().getIntent().putExtra(MainActivity.ny, false);
         setTall();
-
         return view;
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        BrettManager.lagreTilMinne(getActivity(), brettet);
+    }
 
-    private void setTall() {
+    public void setBrettet(Brett brettet) {
+        this.brettet = brettet;
+    }
+
+    public Brett getBrettet() {
+        return brettet;
+    }
+
+    public void setTall() {
         tallAdapter[] adapters = brettet.getAdaptere();
 
         GridView[] grids = new GridView[9];

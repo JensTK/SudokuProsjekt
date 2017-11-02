@@ -3,18 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20sp">
-    <Button android:id="@+id/slettKnapp"
-        android:layout_height="wrap_content"
+    <TextView
         android:layout_width="match_parent"
-        android:text="@string/slettKnapp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/vantString"
+        android:textSize="70sp"
+        android:gravity="center"
+        android:layout_marginBottom="70sp"
+        android:textStyle="italic|bold"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/slettAlleKnapp"
-        android:id="@+id/slettAlleKnapp"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/byttSprak"
-        android:id="@+id/byttSprakKnapp"/>
+        android:text="@string/hovedMenyKnapp"
+        android:id="@+id/hovedMenyKnapp"/>
+
 </LinearLayout>

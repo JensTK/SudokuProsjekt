@@ -25,14 +25,16 @@ public class VanskeligFrag extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (getArguments().getBoolean(MainActivity.lag)) {
                     final LagActivity act = (LagActivity) getActivity();
-                    final Brett brett = act.getBrettet();
+                    final Brett brett = act.getBrettFrag().getBrettet();
                     brett.setDiff(i);
                     DialogFragment frag = new NavnFrag();
                     frag.show(getFragmentManager(), "");
                 }
                 else {
                     DialogFragment frag = new VelgBrettFrag();
-                    frag.setArguments(getArguments());
+                    Bundle bndl = new Bundle();
+                    bndl.putInt(MainActivity.diff, i);
+                    frag.setArguments(bndl);
                     frag.show(getFragmentManager(), "");
                 }
             }

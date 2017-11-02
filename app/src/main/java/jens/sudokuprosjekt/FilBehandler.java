@@ -2,6 +2,7 @@ package jens.sudokuprosjekt;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by jenstobiaskaarud on 10/23/17.
@@ -23,15 +25,30 @@ public class FilBehandler {
     private final static String filNavn = "brett";
     private ArrayList<Brett> brettene;
     private Activity act;
+    private HashMap<String, String> byttDefault = new HashMap<>();
 
     public FilBehandler(Activity act) {
         this.act = act;
-        lesFraFil();
+        brettene = new ArrayList<>();
+
+        byttDefault.put("pres-easy", act.getString(R.string.lettPresNavn));
+        byttDefault.put("pres-med", act.getString(R.string.medPresNavn));
+        byttDefault.put("pres-diff", act.getString(R.string.diffPresNavn));
+
+        try {
+            lesFraFil(new BufferedReader(new InputStreamReader(act.getResources().openRawResource(R.raw.preset))), byttDefault);
+            lesFraFil(new BufferedReader(new InputStreamReader(act.openFileInput(filNavn))), null);
+        }
+        catch (IOException e) {
+            Log.e(MainActivity.tagg, e.toString());
+        }
+        Log.i(MainActivity.tagg, toString());
     }
 
     public ArrayList<Brett> getBrettene() {
         return brettene;
     }
+
     public ArrayList<Brett> getBrettene(int vansk) {
         ArrayList<Brett> ret = new ArrayList<>();
         for (Brett b : brettene) {
@@ -68,10 +85,9 @@ public class FilBehandler {
         return true;
     }
 
-    private void lesFraFil() {
-        brettene = new ArrayList<>();
+    private void lesFraFil(BufferedReader read, @Nullable HashMap<String, String> byttNavn) {
+        Log.i(MainActivity.tagg, "lesFraFil()");
         try {
-            BufferedReader read = new BufferedReader(new InputStreamReader(act.openFileInput(filNavn)));
             String linje = "";
             while (linje != null) {
                 while (!linje.equals("---")) {
@@ -82,6 +98,9 @@ public class FilBehandler {
                 int[][] tallene = new int[9][9];
                 for (int i = 0; i < 9; i++) {
                     tallene[i] = lesTallFraString(read.readLine());
+                }
+                if (byttNavn != null && byttNavn.containsKey(navn)) {
+                    navn = byttNavn.get(navn);
                 }
                 brettene.add(new Brett(act, tallene, diff, navn));
                 linje = read.readLine();
@@ -98,7 +117,7 @@ public class FilBehandler {
             FileOutputStream fil = act.openFileOutput(filNavn, Context.MODE_PRIVATE);
             PrintWriter wrt = new PrintWriter(fil);
             for (Brett b : brettene) {
-                if (b != null) {
+                if (b != null && !byttDefault.containsValue(b.getNavn())) {
                     wrt.println("---");
                     wrt.println(b.getNavn());
                     wrt.println(b.getDiff());
@@ -112,7 +131,7 @@ public class FilBehandler {
                     wrt.flush();
                 }
                 else {
-                    Log.e(MainActivity.tagg, "skrivTilFil(): brettet == null");
+                    Log.e(MainActivity.tagg, "skrivTilFil(): brettet == null eller finnes fra før");
                 }
             }
             wrt.close();
@@ -123,6 +142,16 @@ public class FilBehandler {
             Log.i(MainActivity.tagg, e.toString());
             return false;
         }
+    }
+    public void slettBrett(String navn) {
+        for (Brett b : brettene) {
+            if (b.getNavn().equals(navn)) {
+                brettene.remove(b);
+            }
+        }
+    }
+    public void slettAlle() {
+        brettene = new ArrayList<>();
     }
 
     private static int[] lesTallFraString(String linje) {
@@ -135,6 +164,13 @@ public class FilBehandler {
             catch (Exception e) {
                 Log.i(MainActivity.tagg, e.toString());
             }
+        }
+        return ret;
+    }
+    public String toString() {
+        String ret = "";
+        for (Brett b : brettene) {
+            ret += "\n" + b;
         }
         return ret;
     }

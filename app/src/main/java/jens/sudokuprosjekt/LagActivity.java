@@ -10,23 +10,23 @@ import android.os.Bundle;
  */
 
 public class LagActivity extends Activity {
-    private Brett brettet;
+    private BrettFragment brettFrag;
 
     @Override
     public void onCreate(Bundle bndl) {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
 
-        brettet = new Brett(this);
-        BrettManager.lagBrettFragment(this, brettet);
+        Brett brettet = new Brett(this);
+        brettFrag = BrettManager.lagBrettFragment(this, brettet);
 
         FragmentManager fgm = getFragmentManager();
         FragmentTransaction tran = fgm.beginTransaction();
         tran.replace(R.id.knappView, new LagKnappFragment());
         tran.commit();
     }
-    public Brett getBrettet() {
-        return brettet;
-    }
 
+    public BrettFragment getBrettFrag() {
+        return brettFrag;
+    }
 }

@@ -30,7 +30,7 @@ public class LagKnappFragment extends Fragment {
         sjekkKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                act.getBrettet().sjekkSvar();
+                act.getBrettFrag().getBrettet().sjekkSvar(true);
             }
         });
 

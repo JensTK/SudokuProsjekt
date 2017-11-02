@@ -25,7 +25,7 @@ public class NavnFrag extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 LagActivity act = (LagActivity) getActivity();
-                Brett brett = act.getBrettet();
+                Brett brett = act.getBrettFrag().getBrettet();
                 brett.setNavn(tekst.getText().toString());
                 FilBehandler fil = new FilBehandler(act);
                 if (fil.putBrett(brett)) {
