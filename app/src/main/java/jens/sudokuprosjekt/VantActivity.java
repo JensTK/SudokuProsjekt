@@ -11,7 +11,7 @@ import android.widget.Button;
  * Created by Jens on 02.11.2017.
  */
 
-public class VantActivity extends Activity {
+public class VantActivity extends MainActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,7 @@ public class VantActivity extends Activity {
         hovedMenyKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(VantActivity.this, MainActivity.class));
+                startActivity(new Intent(VantActivity.this, SpillActivity.class));
             }
         });
     }

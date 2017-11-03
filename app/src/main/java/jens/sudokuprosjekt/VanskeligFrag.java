@@ -23,7 +23,7 @@ public class VanskeligFrag extends DialogFragment {
         bldr.setItems(R.array.vanskeligArray, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (getArguments().getBoolean(MainActivity.lag)) {
+                if (getActivity() instanceof LagActivity) {
                     final LagActivity act = (LagActivity) getActivity();
                     final Brett brett = act.getBrettFrag().getBrettet();
                     brett.setDiff(i);

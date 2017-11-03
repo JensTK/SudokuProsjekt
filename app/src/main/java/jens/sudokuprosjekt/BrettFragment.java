@@ -26,13 +26,13 @@ public class BrettFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        BrettManager.lagreTilMinne(getActivity(), brettet);
+        BrettManager.lagreTilMinne(getActivity(), brettet, getActivity() instanceof SudokuActivity);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        brettet = BrettManager.fortsFraMinne(getActivity());
+        brettet = BrettManager.fortsFraMinne(getActivity(), getActivity() instanceof SudokuActivity);
         setTall();
     }
 

@@ -11,9 +11,8 @@
         android:theme="@android:style/Theme.Light.NoTitleBar">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <action android:name=".MainActivity"/>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".SudokuActivity">
@@ -42,7 +41,14 @@
         </activity>
         <activity android:name=".SpillActivity">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <action android:name=".SpillActivity"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".BrettManageActivity">
+            <intent-filter>
+                <action android:name=".BrettManageActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

@@ -1,15 +1,18 @@
 <resources>
-    <string name="app_name">SudokuProsjekt</string>
-    <string name="tittel">Sudoku!</string>
+    <string name="app_name" translatable="false">Sudoku!</string>
 
     <string name="fortsKnapp">Fortsett</string>
     <string name="nyKnapp">Nytt spill</string>
     <string name="slettKnapp">Slett pågående spill</string>
     <string name="optKnapp">Alternativer</string>
-    <string name="sjekkKnapp">Hint</string>
+    <string name="sjekkKnapp" translatable="false">Hint</string>
     <string name="submitKnapp">Send svar</string>
+    <string name="brettManageKnapp">Spillebrett</string>
 
     <string name="vanskeligMessage">Velg vanskelighet</string>
+    <string name="lett">Lett</string>
+    <string name="mid">Middels</string>
+    <string name="vansk">Vanskelig</string>
     <array name="vanskeligArray">
         <item>Lett</item>
         <item>Middels</item>
@@ -35,7 +38,7 @@
     <string name="sikkerMelding">Er du sikker?</string>
     <string name="ja">Ja</string>
     <string name="avbryt">Avbryt</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
 
     <string name="tilfBrett">Tilfeldig brett</string>
     <string name="byttSprak">Velg språk</string>
@@ -47,8 +50,8 @@
 
     <string name="hjelpKnapp">Hjelp</string>
     <array name="hjelpTekst">
-        <item>Sudoku-app laget av Jens Tobias Kaarud.</item>
-        <item>Brettene er hentet fra \"http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html\".</item>
+        <item>Sudoku-app laget av Jens Tobias Kaarud. Kildekoden er tilgjengelig på \"github.com/jenstk/sudokuprosjekt\".</item>
+        <item>Brettene er hentet fra \"elmo.sbs.arizona.edu/sandiway/sudoku/examples.html\".</item>
         <item>Hold på et tall for å merke det, hvis du tror det er feil. Du kan også trykke på "hint", og appen vil vise deg hvilke tall som bryter reglene.</item>
         <item>Pågående spill lagres automatisk, så du trenger ikke tenke på å tape spillet du holder på med!</item>
     </array>

@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tittel"
+        android:text="@string/app_name"
         android:gravity="center"
         android:textSize="50sp"
         android:textStyle="bold|italic"
@@ -32,8 +32,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lagKnapp"
-        android:id="@+id/lagKnapp"/>
+        android:text="@string/brettManageKnapp"
+        android:id="@+id/brettManageKnapp"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

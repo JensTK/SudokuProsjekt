@@ -9,16 +9,13 @@ import android.os.Bundle;
  * Created by Jens on 30.10.2017.
  */
 
-public class LagActivity extends Activity {
+public class LagActivity extends MainActivity {
     private BrettFragment brettFrag;
 
     @Override
     public void onCreate(Bundle bndl) {
         super.onCreate(bndl);
         setContentView(R.layout.activity_sudoku);
-
-        Brett brettet = new Brett(this);
-        BrettManager.lagreTilMinne(this, brettet);
 
         brettFrag = BrettManager.lagBrettFragment(this);
 

@@ -21,14 +21,14 @@ public class VelgBrettFrag extends DialogFragment {
         final FilBehandler filer = new FilBehandler(getActivity());
         final int vansk = getArguments().getInt(MainActivity.diff);
         Log.i(MainActivity.tagg, "Valgt vansk: " + vansk);
-        final String[] navnene = filer.getNavnene(vansk);
+        final String[] navnene = filer.getNavnene(vansk, true);
         final AlertDialog.Builder bldr = new AlertDialog.Builder(getActivity());
         bldr.setTitle(R.string.velgBrett);
         bldr.setItems(navnene, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Brett brettet = filer.getBrett(navnene[i]);
-                BrettManager.lagreTilMinne(getActivity(), brettet);
+                BrettManager.lagreTilMinne(getActivity(), brettet, true);
                 getActivity().startActivity(new Intent(".SudokuActivity"));
             }
         });
@@ -37,7 +37,7 @@ public class VelgBrettFrag extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Random rand = new Random();
                 Brett brettet = filer.getBrett(navnene[rand.nextInt(navnene.length)]);
-                BrettManager.lagreTilMinne(getActivity(), brettet);
+                BrettManager.lagreTilMinne(getActivity(), brettet, true);
                 getActivity().startActivity(new Intent((".SudokuActivity")));
             }
         });

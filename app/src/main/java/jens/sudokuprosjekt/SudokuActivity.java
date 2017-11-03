@@ -19,7 +19,7 @@ import java.util.Random;
  * Created by Jens on 22.10.2017.
  */
 
-public class SudokuActivity extends Activity {
+public class SudokuActivity extends MainActivity {
     private BrettFragment brettFrag;
 
     @Override

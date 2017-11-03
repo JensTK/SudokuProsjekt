@@ -16,7 +16,7 @@ import android.widget.Button;
  * Created by Jens on 02.11.2017.
  */
 
-public class SpillActivity extends Activity {
+public class SpillActivity extends MainActivity {
     private Button fortsKnapp;
 
     @Override
@@ -24,7 +24,7 @@ public class SpillActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button nyKnapp = (Button)findViewById(R.id.nyKnapp);
+        Button nyKnapp = findViewById(R.id.nyKnapp);
         nyKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,7 +36,7 @@ public class SpillActivity extends Activity {
             }
         });
 
-        fortsKnapp = (Button)findViewById(R.id.fortsKnapp);
+        fortsKnapp = findViewById(R.id.fortsKnapp);
 
         fortsKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +47,7 @@ public class SpillActivity extends Activity {
             }
         });
 
-        Button optKnapp = (Button)findViewById(R.id.optKnapp);
+        Button optKnapp = findViewById(R.id.optKnapp);
         optKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,15 +55,15 @@ public class SpillActivity extends Activity {
             }
         });
 
-        Button lagKnapp = (Button) findViewById(R.id.lagKnapp);
-        lagKnapp.setOnClickListener(new View.OnClickListener() {
+        Button brettManageKnapp = findViewById(R.id.brettManageKnapp);
+        brettManageKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(".LagActivity"));
+                startActivity(new Intent(".BrettManageActivity"));
             }
         });
 
-        Button hjelpKnapp = (Button) findViewById(R.id.hjelpKnapp);
+        Button hjelpKnapp = findViewById(R.id.hjelpKnapp);
         hjelpKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,8 +90,8 @@ public class SpillActivity extends Activity {
         Log.i(MainActivity.tagg, "MainActivity.onResume()");
         super.onResume();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.i(MainActivity.tagg, "Rute 0 = " + prefs.getString("0", null));
-        if (prefs.getString("0", null) == null) {
+        Log.i(MainActivity.tagg, "Rute 0 = " + prefs.getString(true + "0", null));
+        if (prefs.getString(true + "0", null) == null) {
             fortsKnapp.setEnabled(false);
             fortsKnapp.setFocusable(false);
         } else {

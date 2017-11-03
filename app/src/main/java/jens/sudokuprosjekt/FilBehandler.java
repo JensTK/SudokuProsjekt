@@ -49,11 +49,16 @@ public class FilBehandler {
         return brettene;
     }
 
-    public ArrayList<Brett> getBrettene(int vansk) {
+    public ArrayList<Brett> getBrettene(int vansk, boolean defaultBrett) {
         ArrayList<Brett> ret = new ArrayList<>();
         for (Brett b : brettene) {
             if (b.getDiff() == vansk) {
-                ret.add(b);
+                if (defaultBrett) {
+                    ret.add(b);
+                }
+                else if (!byttDefault.containsValue(b.getNavn())) {
+                    ret.add(b);
+                }
             }
         }
         return ret;
@@ -66,8 +71,8 @@ public class FilBehandler {
         }
         return null;
     }
-    public String[] getNavnene(int vansk) {
-        ArrayList<Brett> brt = getBrettene(vansk);
+    public String[] getNavnene(int vansk, boolean defaultBrett) {
+        ArrayList<Brett> brt = getBrettene(vansk, defaultBrett);
         String[] ret = new String[brt.size()];
         for (int i = 0; i < ret.length; i++) {
             ret[i] = brt.get(i).getNavn();

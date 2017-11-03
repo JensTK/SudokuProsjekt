@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">SudokuProject</string>
     <string name="fortsKnapp">Continue</string>
     <string name="nyKnapp">New game</string>
     <string name="slettKnapp">Delete current game</string>
@@ -26,7 +25,7 @@
     <string name="hovedMenyKnapp">To main menu</string>
 
     <string name="feilTallMsg">One of your numbers is wrong! Use the hint button to find it.</string>
-    <string name="tomRuteMsg">Please fill every square!</string>
+    <string name="tomRuteMsg">You have to fill every square!</string>
 
     <string name="slettAlleKnapp">Delete all created boards</string>
     <string name="sikkerMelding">Are you sure?</string>
@@ -37,10 +36,14 @@
     <string name="byttSprak">Choose language</string>
     <string name="hjelpKnapp">Help</string>
     <array name="hjelpTekst">
-        <item>Sudoku-app by Jens Tobias Kaarud.</item>
-        <item>Boards are from \"http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html\".</item>
+        <item>Sudoku-app by Jens Tobias Kaarud. The source code is available at \"github.com/jenstk/sudokuprosjekt\".</item>
+        <item>Boards are from \"elmo.sbs.arizona.edu/sandiway/sudoku/examples.html\".</item>
         <item>Long-press a field to mark it, if you think it is incorrect. You can also press the hint button to see which squares break the rules.</item>
         <item>Ongoing games are saved automatically, so you don\'t have to worry about losing your progress!</item>
     </array>
+    <string name="lett">Easy</string>
+    <string name="mid">Medium</string>
+    <string name="vansk">Hard</string>
+    <string name="brettManageKnapp">Boards</string>
 
 </resources>

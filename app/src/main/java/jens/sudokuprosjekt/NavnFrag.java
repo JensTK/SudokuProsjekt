@@ -30,7 +30,7 @@ public class NavnFrag extends DialogFragment {
                 FilBehandler fil = new FilBehandler(act);
                 if (fil.putBrett(brett)) {
                     fil.skrivTilFil();
-                    startActivity(new Intent(act, MainActivity.class));
+                    startActivity(new Intent(act, SpillActivity.class));
                 }
             }
         });

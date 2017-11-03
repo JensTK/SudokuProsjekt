@@ -15,16 +15,16 @@ import android.util.Log;
 public class BrettManager {
     private BrettManager() {}
 
-    public static Brett fortsFraMinne(Activity act) {
+    public static Brett fortsFraMinne(Activity act, boolean spilles) {
         int[][] tallene = new int[9][9];
         boolean[][] disabled = new boolean[9][9];
         boolean[][] merket = new boolean[9][9];
-        Log.i(MainActivity.tagg, "lese()");
+        Log.i(MainActivity.tagg, "lese(" + spilles + ")");
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(act);
         for (int i = 0; i < tallene.length; i++) {
-            //Log.i(MainActivity.tagg, i + " - " + pref.getString(Integer.toString(i), null));
+            //Log.i(MainActivity.tagg, spilles + Integer.toString(i) + " - " + pref.getString(spilles + Integer.toString(i), null));
             //Lese tallene
-            String[] les = pref.getString(Integer.toString(i), null).split(",");
+            String[] les = pref.getString(spilles + Integer.toString(i), null).split(",");
             for (int j = 0; j < les.length; j++) {
                 try {
                     tallene[i][j] = Integer.parseInt(String.valueOf(les[j]));
@@ -32,7 +32,7 @@ public class BrettManager {
                 catch (Exception e) {}
             }
             //Lese om de er disabled
-            String[] les2 = pref.getString(MainActivity.disable + i, null).split(",");
+            String[] les2 = pref.getString(spilles + MainActivity.disable + i, null).split(",");
             for (int j = 0; j < les2.length; j++) {
                 if (les2[j].equals("1")) {
                     disabled[i][j] = true;
@@ -42,7 +42,7 @@ public class BrettManager {
                 }
             }
             //Lese om de er merket
-            String[] les3 = pref.getString(MainActivity.merket + i, null).split(",");
+            String[] les3 = pref.getString(spilles + MainActivity.merket + i, null).split(",");
             for (int j = 0; j < les3.length; j++) {
                 if (les3[j].equals("1")) {
                     merket[i][j] = true;
@@ -53,14 +53,14 @@ public class BrettManager {
                 }
             }
         }
-        return new Brett(act, tallene, disabled, merket, pref.getInt(MainActivity.diff, 0), pref.getString(MainActivity.navn, ""));
+        return new Brett(act, tallene, disabled, merket, pref.getInt(spilles + MainActivity.diff, 0), pref.getString(spilles + MainActivity.navn, ""));
     }
-    public static void lagreTilMinne(Activity act, Brett brett) {
-        Log.i(MainActivity.tagg, "lagre()");
+    public static void lagreTilMinne(Activity act, Brett brett, boolean spilles) {
+        Log.i(MainActivity.tagg, "lagre(" + spilles + ")");
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(act);
         SharedPreferences.Editor edit = pref.edit();
-        edit.putInt(MainActivity.diff, brett.getDiff());
-        edit.putString(MainActivity.navn, brett.getNavn());
+        edit.putInt(spilles + MainActivity.diff, brett.getDiff());
+        edit.putString(spilles + MainActivity.navn, brett.getNavn());
 
         tallAdapter[] adaptere = brett.getAdaptere();
         for (int i = 0; i < adaptere.length; i++) {
@@ -69,8 +69,8 @@ public class BrettManager {
             for (int j : adaptere[i].getTallene()) {
                 lagre += j + ",";
             }
-            //Log.i(MainActivity.tagg, i + " - " + lagre);
-            edit.putString(Integer.toString(i), lagre);
+            //Log.i(MainActivity.tagg, spilles + Integer.toString(i) + " - " + lagre);
+            edit.putString(spilles + Integer.toString(i), lagre);
 
             //Lagre om de er disabled
             String lagre2 = "";
@@ -82,7 +82,7 @@ public class BrettManager {
                     lagre2 += "0,";
                 }
             }
-            edit.putString(MainActivity.disable + i, lagre2);
+            edit.putString(spilles + MainActivity.disable + i, lagre2);
 
             //Lagre om de er merket
             String lagre3 = "";
@@ -95,7 +95,7 @@ public class BrettManager {
                 }
             }
 //            Log.i(MainActivity.tagg, "Merker: " + i + " - " + lagre3);
-            edit.putString(MainActivity.merket + i, lagre3);
+            edit.putString(spilles + MainActivity.merket + i, lagre3);
         }
         edit.apply();
     }

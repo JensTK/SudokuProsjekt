@@ -18,7 +18,7 @@ import java.util.Locale;
  * Created by jenstobiaskaarud on 10/23/17.
  */
 
-public class OptionsActivity extends Activity {
+public class OptionsActivity extends MainActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class OptionsActivity extends Activity {
                                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
                                 SharedPreferences.Editor edit = prefs.edit();
                                 for (int j = 0; j < 9; j++) {
-                                    edit.remove(Integer.toString(j));
+                                    edit.remove(true + Integer.toString(j));
                                 }
                                 edit.apply();
                             }
@@ -102,7 +102,7 @@ public class OptionsActivity extends Activity {
                                 conf.locale = loc;
                                 getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources().getDisplayMetrics());
 
-                                startActivity(new Intent(OptionsActivity.this, MainActivity.class));
+                                startActivity(new Intent(OptionsActivity.this, SpillActivity.class));
                             }
                         })
                         .show();
