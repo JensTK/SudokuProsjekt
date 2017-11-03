@@ -3,8 +3,6 @@ package jens.sudokuprosjekt;
 import android.app.Activity;
 import android.util.Log;
 
-import java.util.Arrays;
-
 /**
  * Created by jenstobiaskaarud on 10/31/17.
  */

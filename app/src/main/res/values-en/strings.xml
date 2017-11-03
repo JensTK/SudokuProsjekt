@@ -45,5 +45,6 @@
     <string name="mid">Medium</string>
     <string name="vansk">Hard</string>
     <string name="brettManageKnapp">Boards</string>
+    <string name="tomtNavn">Please enter a name!</string>
 
 </resources>

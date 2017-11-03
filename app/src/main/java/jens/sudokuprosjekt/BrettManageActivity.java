@@ -5,14 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.ExpandableListView;
 
 /**
  * Created by Jens on 03.11.2017.
@@ -20,7 +15,8 @@ import android.widget.SimpleAdapter;
 
 public class BrettManageActivity extends MainActivity {
     private Button slettBrettKnapp;
-    private ListView[] views = new ListView[3];
+    private ExpandableListView liste;
+    private ExpListeAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,29 +24,19 @@ public class BrettManageActivity extends MainActivity {
         setContentView(R.layout.activity_brettmanage);
 
         slettBrettKnapp = findViewById(R.id.slettBrettKnapp);
+        liste = findViewById(R.id.brettManageListe);
 
         final FilBehandler filer = new FilBehandler(this);
 
-        final String[][] navnene = {
-                filer.getNavnene(0, false),
-                filer.getNavnene(1, false),
-                filer.getNavnene(2, false)
-        };
-        views[0] = findViewById(R.id.lettList);
-        views[1] = findViewById(R.id.medList);
-        views[2] = findViewById(R.id.vanskList);
-        for (int i = 0; i < views.length; i++) {
-            views[i].setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-            views[i].setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, navnene[i]));
-            final int j = i;
-            views[i].setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int k, long l) {
-                    Log.i(MainActivity.tagg, "Item clicked");
-                    enableKnapp();
-                }
-            });
+        String[] vanskeligheter = getResources().getStringArray(R.array.vanskeligArray);
+        String[][] brettNavn = new String[3][];
+
+        for (int i = 0; i < vanskeligheter.length; i++) {
+            brettNavn[i] = filer.getNavnene(i, false);
         }
+
+        adapter = new ExpListeAdapter(this, brettNavn, vanskeligheter);
+        liste.setAdapter(adapter);
 
         Button lagKnapp = findViewById(R.id.lagKnapp);
         lagKnapp.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +56,12 @@ public class BrettManageActivity extends MainActivity {
                         .setPositiveButton(getString(R.string.ja), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int z) {
-                                final ListView[] vs = views;
-                                for (int i = 0; i < vs.length; i++) {
-                                    SparseBooleanArray valgt = vs[i].getCheckedItemPositions();
-                                    for (int j = 0; j < navnene[i].length; j++) {
-                                        if (valgt.get(j)) {
-                                            filer.slettBrett(navnene[i][j]);
+                                boolean[][] selected = adapter.getSelected();
+                                for (int i = 0; i < selected.length; i++) {
+                                    for (int j = 0; j < selected[i].length; j++) {
+                                        if (selected[i][j]) {
+                                            String navn = (String) adapter.getChild(i, j);
+                                            filer.slettBrett(navn);
                                         }
                                     }
                                 }
@@ -94,11 +80,11 @@ public class BrettManageActivity extends MainActivity {
         });
         enableKnapp();
     }
-    private void enableKnapp() {
-        for (ListView l : views) {
-            SparseBooleanArray valgt = l.getCheckedItemPositions();
-            for (int i = 0; i < valgt.size(); i++) {
-                if (valgt.get(i)) {
+    public void enableKnapp() {
+        boolean[][] selected = adapter.getSelected();
+        for (boolean[] b : selected) {
+            for (boolean c : b) {
+                if (c) {
                     slettBrettKnapp.setEnabled(true);
                     slettBrettKnapp.setFocusable(true);
                     return;

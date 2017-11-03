@@ -25,6 +25,7 @@
     <string name="velgBrett">Velg brett</string>
     <string name="navnTekst">Navn</string>
     <string name="filFinnes">Brettet finnes fra før! Skriv et annet navn.</string>
+    <string name="tomtNavn">Du må skrive inn et navn!</string>
     <string name="lettPresNavn">Standard Lett</string>
     <string name="medPresNavn">Standard Middels</string>
     <string name="diffPresNavn">Standard Vanskelig</string>

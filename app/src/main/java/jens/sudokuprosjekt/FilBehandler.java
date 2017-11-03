@@ -7,13 +7,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -45,8 +42,17 @@ public class FilBehandler {
         Log.i(MainActivity.tagg, toString());
     }
 
-    public ArrayList<Brett> getBrettene() {
-        return brettene;
+    public ArrayList<Brett> getBrettene(boolean defaultBrett) {
+        ArrayList<Brett> ret = new ArrayList<>();
+        for (Brett b : brettene) {
+            if (defaultBrett) {
+                ret.add(b);
+            }
+            else if (!byttDefault.containsValue(b.getNavn())) {
+                ret.add(b);
+            }
+        }
+        return ret;
     }
 
     public ArrayList<Brett> getBrettene(int vansk, boolean defaultBrett) {
@@ -79,12 +85,24 @@ public class FilBehandler {
         }
         return ret;
     }
+    public String[] getNavnene(boolean defaultBrett) {
+        ArrayList<Brett> brt = getBrettene(defaultBrett);
+        String[] ret = new String[brt.size()];
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = brt.get(i).getNavn();
+        }
+        return ret;
+    }
     public boolean putBrett(Brett brett) {
         for (Brett b : brettene) {
             if (b.getNavn().equals(brett.getNavn())) {
                 Toast.makeText(act, R.string.filFinnes, Toast.LENGTH_LONG).show();
                 return false;
             }
+        }
+        if (brett.getNavn().equals("")) {
+            Toast.makeText(act, act.getString(R.string.tomtNavn), Toast.LENGTH_LONG).show();
+            return false;
         }
         brettene.add(brett);
         return true;
@@ -149,9 +167,10 @@ public class FilBehandler {
         }
     }
     public void slettBrett(String navn) {
-        for (Brett b : brettene) {
-            if (b.getNavn().equals(navn)) {
-                brettene.remove(b);
+        for (int i = 0; i < brettene.size(); i++) {
+            if (brettene.get(i).getNavn().equals(navn)) {
+                brettene.remove(brettene.get(i));
+                return;
             }
         }
     }
