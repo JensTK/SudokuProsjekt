@@ -109,11 +109,12 @@ public class tallAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final EditText nyEdit;
+
         if (view == null) {
             nyEdit = new EditText(cont);
         }
         else {
-            nyEdit = (EditText)view;
+            nyEdit = (EditText) view;
         }
         if (tallene[i] >= 0) {
             nyEdit.setText(Integer.toString(tallene[i]));

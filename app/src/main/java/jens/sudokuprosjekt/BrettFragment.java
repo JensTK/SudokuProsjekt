@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 /**
  * Created by Jens on 30.10.2017.
@@ -43,7 +44,7 @@ public class BrettFragment extends Fragment {
     public void setTall() {
         tallAdapter[] adapters = brettet.getAdaptere();
 
-        GridView[] grids = new GridView[9];
+        SpillGridView[] grids = new SpillGridView[9];
 
         grids[0] = view.findViewById(R.id.r00);
         grids[1] = view.findViewById(R.id.r01);
@@ -57,7 +58,14 @@ public class BrettFragment extends Fragment {
         grids[7] = view.findViewById(R.id.r21);
         grids[8] = view.findViewById(R.id.r22);
 
+        int str = getActivity().getApplicationContext().getResources().getDisplayMetrics().heightPixels / 3;
+        int bredde = getActivity().getApplicationContext().getResources().getDisplayMetrics().widthPixels / 3;
+        if (bredde < str) {
+            str = bredde;
+        }
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(str, str);
         for (int i = 0; i < 9; i++) {
+            grids[i].setLayoutParams(param);
             grids[i].setAdapter(adapters[i]);
         }
     }
