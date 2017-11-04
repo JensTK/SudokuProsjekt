@@ -2,7 +2,9 @@ package jens.sudokuprosjekt;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -50,6 +52,19 @@ public class RuteTableLayout extends TableLayout {
         return merket;
     }
     public void setFeil(boolean[] feil) {
+        /*for (int i = 0; i < this.getChildCount(); i++) {
+            TableRow row = (TableRow)this.getChildAt(i);
+            for (int j = 0; j < row.getChildCount(); j++) {
+                int pos = 3 * i + j;
+                EditText edit = (EditText)row.getChildAt(j);
+                edit.setTextColor(Color.RED);
+                if (feil[pos]) {
+                    edit.setTextColor(Color.RED);
+                }
+                row.addView(edit);
+
+            }
+        }*/
         this.feil = feil;
     }
     public boolean[] getFeil() {
@@ -85,35 +100,6 @@ public class RuteTableLayout extends TableLayout {
                 LayoutInflater inf = LayoutInflater.from(cont);
                 final EditText nyEdit = (EditText) inf.inflate(R.layout.edittall, null);
 
-                if (tallene[pos] >= 0) {
-                    nyEdit.setText(Integer.toString(tallene[pos]));
-                } else {
-                    nyEdit.setText("");
-                }
-                nyEdit.setBackgroundColor(Color.TRANSPARENT);
-                InputFilter[] filts = {new InputFilter.LengthFilter(1)};
-                nyEdit.setFilters(filts);
-                if (disabled[pos]) {
-                    nyEdit.setEnabled(false);
-                    nyEdit.setFocusable(false);
-                }
-                if (merket[pos]) {
-                    Log.i(MainActivity.tagg, "Merker " + pos);
-                    nyEdit.setBackgroundColor(Color.YELLOW);
-                }
-                if (feil[pos]) {
-                    nyEdit.setBackgroundColor(Color.RED);
-                    Log.i(MainActivity.tagg, "Setter feil på " + pos);
-                    CountDownTimer timer = new CountDownTimer(2000, 2000) {
-                        @Override
-                        public void onTick(long l) {}
-                        @Override
-                        public void onFinish() {
-                            nyEdit.setBackgroundColor(Color.TRANSPARENT);
-                        }
-                    };
-                    timer.start();
-                }
                 nyEdit.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -136,9 +122,11 @@ public class RuteTableLayout extends TableLayout {
                     public boolean onLongClick(View view) {
                         int farge = ((ColorDrawable) nyEdit.getBackground()).getColor();
                         if (farge == Color.YELLOW) {
+//                            nyEdit.getBackground().setColorFilter(null);
                             nyEdit.setBackgroundColor(Color.TRANSPARENT);
                             RuteTableLayout.this.merket[pos] = false;
                         } else if (farge == Color.TRANSPARENT || farge == Color.RED) {
+//                            nyEdit.getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.DARKEN);
                             nyEdit.setBackgroundColor(Color.YELLOW);
                             RuteTableLayout.this.merket[pos] = true;
                         }
@@ -146,10 +134,47 @@ public class RuteTableLayout extends TableLayout {
                         return true;
                     }
                 });
+
+                InputFilter[] filts = {new InputFilter.LengthFilter(1)};
+                nyEdit.setFilters(filts);
+
+                nyEdit.setBackgroundColor(Color.TRANSPARENT);
+
+                if (feil[pos]) {
+                    Log.i(MainActivity.tagg, "Setter feil på " + pos);
+                    nyEdit.setTextColor(Color.RED);
+                    CountDownTimer timer = new CountDownTimer(4000, 1000) {
+                        @Override
+                        public void onTick(long l) {}
+                        @Override
+                        public void onFinish() {
+                            nyEdit.setTextColor(Color.BLACK);
+                        }
+                    };
+                    timer.start();
+                }
+                if (merket[pos]) {
+                    //Log.i(MainActivity.tagg, "Merker " + pos);
+                    nyEdit.setBackgroundColor(Color.YELLOW);
+                }
+                //nyEdit.setTextColor(Color.RED);
+
+                if (tallene[pos] >= 0) {
+                    nyEdit.setText(Integer.toString(tallene[pos]));
+                } else {
+                    nyEdit.getText().clear();
+                }
+                if (disabled[pos]) {
+                    nyEdit.setEnabled(false);
+                    nyEdit.setFocusable(false);
+                }
+                //Log.i(MainActivity.tagg, "Farge i " + pos + " = " + ((ColorDrawable)nyEdit.getBackground()).getColor());
+
                 //nyEdit.setBackgroundColor(Color.RED);
                 editTexts[pos] = nyEdit;
                 rad.addView(nyEdit, j, new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
             }
+
             this.addView(rad, i, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
     }

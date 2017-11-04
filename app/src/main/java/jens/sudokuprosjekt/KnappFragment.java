@@ -35,6 +35,7 @@ public class KnappFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 act.getBrettFrag().getBrettet().sjekkSvar(true);
+                act.getBrettFrag().setTall();
             }
         });
 

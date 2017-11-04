@@ -122,7 +122,7 @@ public class Brett {
         //Log.i(MainActivity.tagg, "merkRuter()");
         for (int i = 0; i < ruter.length; i++) {
             ruter[i].setFeil(feil[i]);
-            ruter[i].oppdater();
+            //ruter[i].oppdater();
         }
     }
 
@@ -149,7 +149,7 @@ public class Brett {
             int[] tallT = ruter[t].getTallene();
 
             for (int i = 0; i < tallT.length; i++) {
-                Log.i(MainActivity.tagg, "sjekkSvar(), tallet " + t + "-" + i + " = " + tallT[i]);
+                //Log.i(MainActivity.tagg, "sjekkSvar(), tallet " + t + "-" + i + " = " + tallT[i]);
                 //Sjekke samme ruta
                 for (int j = 0; j < tallT.length; j++) {
                     if (tallT[j] == tallT[i] && j != i) {
