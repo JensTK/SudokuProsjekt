@@ -61,7 +61,7 @@ public class BrettManager {
         edit.putInt(spilles + MainActivity.diff, brett.getDiff());
         edit.putString(spilles + MainActivity.navn, brett.getNavn());
 
-        tallAdapter[] adaptere = brett.getAdaptere();
+        RuteTableLayout[] adaptere = brett.getRuter();
         for (int i = 0; i < adaptere.length; i++) {
             //Lagre tallene
             String lagre = "";

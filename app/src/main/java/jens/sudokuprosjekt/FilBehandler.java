@@ -144,7 +144,7 @@ public class FilBehandler {
                     wrt.println("---");
                     wrt.println(b.getNavn());
                     wrt.println(b.getDiff());
-                    for (tallAdapter i : b.getAdaptere()) {
+                    for (RuteTableLayout i : b.getRuter()) {
                         String s = "";
                         for (int j : i.getTallene()) {
                             s += j + ",";
