@@ -52,19 +52,6 @@ public class RuteTableLayout extends TableLayout {
         return merket;
     }
     public void setFeil(boolean[] feil) {
-        /*for (int i = 0; i < this.getChildCount(); i++) {
-            TableRow row = (TableRow)this.getChildAt(i);
-            for (int j = 0; j < row.getChildCount(); j++) {
-                int pos = 3 * i + j;
-                EditText edit = (EditText)row.getChildAt(j);
-                edit.setTextColor(Color.RED);
-                if (feil[pos]) {
-                    edit.setTextColor(Color.RED);
-                }
-                row.addView(edit);
-
-            }
-        }*/
         this.feil = feil;
     }
     public boolean[] getFeil() {
@@ -122,11 +109,9 @@ public class RuteTableLayout extends TableLayout {
                     public boolean onLongClick(View view) {
                         int farge = ((ColorDrawable) nyEdit.getBackground()).getColor();
                         if (farge == Color.YELLOW) {
-//                            nyEdit.getBackground().setColorFilter(null);
                             nyEdit.setBackgroundColor(Color.TRANSPARENT);
                             RuteTableLayout.this.merket[pos] = false;
                         } else if (farge == Color.TRANSPARENT || farge == Color.RED) {
-//                            nyEdit.getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.DARKEN);
                             nyEdit.setBackgroundColor(Color.YELLOW);
                             RuteTableLayout.this.merket[pos] = true;
                         }
@@ -157,7 +142,6 @@ public class RuteTableLayout extends TableLayout {
                     //Log.i(MainActivity.tagg, "Merker " + pos);
                     nyEdit.setBackgroundColor(Color.YELLOW);
                 }
-                //nyEdit.setTextColor(Color.RED);
 
                 if (tallene[pos] >= 0) {
                     nyEdit.setText(Integer.toString(tallene[pos]));
@@ -170,7 +154,6 @@ public class RuteTableLayout extends TableLayout {
                 }
                 //Log.i(MainActivity.tagg, "Farge i " + pos + " = " + ((ColorDrawable)nyEdit.getBackground()).getColor());
 
-                //nyEdit.setBackgroundColor(Color.RED);
                 editTexts[pos] = nyEdit;
                 rad.addView(nyEdit, j, new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
             }

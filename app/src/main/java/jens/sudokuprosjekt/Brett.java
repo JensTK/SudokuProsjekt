@@ -122,7 +122,6 @@ public class Brett {
         //Log.i(MainActivity.tagg, "merkRuter()");
         for (int i = 0; i < ruter.length; i++) {
             ruter[i].setFeil(feil[i]);
-            //ruter[i].oppdater();
         }
     }
 
