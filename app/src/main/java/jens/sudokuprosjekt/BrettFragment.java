@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 
 /**
  * Created by Jens on 30.10.2017.

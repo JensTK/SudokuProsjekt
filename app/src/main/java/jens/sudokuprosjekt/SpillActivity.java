@@ -1,6 +1,5 @@
 package jens.sudokuprosjekt;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;

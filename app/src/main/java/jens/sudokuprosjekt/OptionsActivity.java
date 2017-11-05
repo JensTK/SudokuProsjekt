@@ -1,6 +1,5 @@
 package jens.sudokuprosjekt;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-
 import java.util.Locale;
 
 /**

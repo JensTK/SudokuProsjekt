@@ -125,7 +125,7 @@ public class RuteTableLayout extends TableLayout {
 
                 nyEdit.setBackgroundColor(Color.TRANSPARENT);
 
-                if (feil[pos]) {
+                if (feil[pos] && !disabled[pos]) {
                     Log.i(MainActivity.tagg, "Setter feil på " + pos);
                     nyEdit.setTextColor(Color.RED);
                     CountDownTimer timer = new CountDownTimer(4000, 1000) {

@@ -4,11 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 /**
  * Created by Jens on 30.10.2017.

@@ -1,7 +1,6 @@
 package jens.sudokuprosjekt;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -10,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 /**
  * Created by Jens on 03.11.2017.

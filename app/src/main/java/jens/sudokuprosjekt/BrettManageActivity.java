@@ -78,6 +78,9 @@ public class BrettManageActivity extends MainActivity {
                         .show();
             }
         });
+        for (int i = 0; i < adapter.getGroupCount(); i++) {
+            liste.expandGroup(i, false);
+        }
         enableKnapp();
     }
     public void enableKnapp() {

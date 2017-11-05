@@ -16,12 +16,6 @@ import android.widget.Toast;
  */
 
 public class KnappFragment extends Fragment {
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Nullable
     @Override
