@@ -6,13 +6,16 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
+import android.support.annotation.Dimension;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -75,17 +78,27 @@ public class RuteTableLayout extends TableLayout {
 
     public void oppdater() {
         this.removeAllViews();
+        this.setWeightSum(3);
+        //int str = this.getWidth() / 3;
+
         for (int i = 0; i < 3; i++) {
-            TableRow rad = new TableRow(cont);
-            TableRow.LayoutParams param = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT, 1f);
-            rad.setLayoutParams(param);
+            TableRow rad = (TableRow)this.getChildAt(i);
+            if (rad == null) {
+                rad = new TableRow(cont);
+                //Log.i(MainActivity.tagg, "Recreater TableRow");
+            }
+            rad.setWeightSum(3);
 
             for (int j = 0; j < 3; j++) {
                 final int pos = 3 * i + j;
 
-                LayoutInflater inf = LayoutInflater.from(cont);
-                final EditText nyEdit = (EditText) inf.inflate(R.layout.edittall, null);
+                EditText edt = (EditText)rad.getChildAt(j);
+                if (edt == null) {
+                    LayoutInflater inf = LayoutInflater.from(cont);
+                    edt = (EditText) inf.inflate(R.layout.edittall, null);
+                    //Log.i(MainActivity.tagg, "Recreater EditText");
+                }
+                final EditText nyEdit = edt;
 
                 nyEdit.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -120,7 +133,15 @@ public class RuteTableLayout extends TableLayout {
                     }
                 });
 
-                InputFilter[] filts = {new InputFilter.LengthFilter(1)};
+                InputFilter[] filts = { new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+                        if (charSequence.equals("0")) {
+                            return "";
+                        }
+                        return null;
+                    }
+                }, new InputFilter.LengthFilter(1) };
                 nyEdit.setFilters(filts);
 
                 nyEdit.setBackgroundColor(Color.TRANSPARENT);
@@ -155,10 +176,12 @@ public class RuteTableLayout extends TableLayout {
                 //Log.i(MainActivity.tagg, "Farge i " + pos + " = " + ((ColorDrawable)nyEdit.getBackground()).getColor());
 
                 editTexts[pos] = nyEdit;
-                rad.addView(nyEdit, j, new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
+                //rad.addView(nyEdit, j, new TableRow.LayoutParams(str, str));
+                rad.addView(nyEdit, j, new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
             }
 
-            this.addView(rad, i, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            //this.addView(rad, i, new TableLayout.LayoutParams(str * 3, str));
+            this.addView(rad, i, new TableLayout.LayoutParams(LayoutParams.MATCH_PARENT, 0, 1));
         }
     }
 }
