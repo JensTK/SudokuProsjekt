@@ -47,6 +47,7 @@ public class KnappFragment extends Fragment {
                         Toast.makeText(act, getString(R.string.tomRuteMsg), Toast.LENGTH_LONG).show();
                         break;
                     case RIKTIG:
+                        BrettManager.slettFraMinne(getActivity());
                         startActivity(new Intent(".VantActivity"));
                         break;
                 }

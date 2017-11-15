@@ -98,6 +98,14 @@ public class BrettManager {
         }
         edit.apply();
     }
+    public static void slettFraMinne(Activity act) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(act);
+        SharedPreferences.Editor edit = prefs.edit();
+        for (int j = 0; j < 9; j++) {
+            edit.remove(true + Integer.toString(j));
+        }
+        edit.apply();
+    }
 
     public static BrettFragment lagBrettFragment(Activity act) {
         FragmentManager fgm = act.getFragmentManager();

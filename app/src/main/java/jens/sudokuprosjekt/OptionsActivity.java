@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -31,12 +32,7 @@ public class OptionsActivity extends MainActivity {
                         .setPositiveButton(getString(R.string.ja), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
-                                SharedPreferences.Editor edit = prefs.edit();
-                                for (int j = 0; j < 9; j++) {
-                                    edit.remove(true + Integer.toString(j));
-                                }
-                                edit.apply();
+                                BrettManager.slettFraMinne(OptionsActivity.this);
                             }
                         })
                         .setNegativeButton(getString(R.string.avbryt), new DialogInterface.OnClickListener() {
