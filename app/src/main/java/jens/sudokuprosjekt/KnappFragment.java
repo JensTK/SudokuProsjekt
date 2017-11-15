@@ -38,7 +38,7 @@ public class KnappFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Brett brettet = act.getBrettFrag().getBrettet();
-                Brett.feilType feil = brettet.sjekkSvar(false);
+                Brett.feilType feil = brettet.sjekkSvar(true);
                 switch (feil) {
                     case FEIL_TALL:
                         Toast.makeText(act, getString(R.string.feilTallMsg), Toast.LENGTH_LONG).show();

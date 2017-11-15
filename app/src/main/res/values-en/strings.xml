@@ -46,5 +46,6 @@
     <string name="vansk">Hard</string>
     <string name="brettManageKnapp">Boards</string>
     <string name="tomtNavn">Please enter a name!</string>
+    <string name="feilTallLagMsg">One of your numbers is wrong!</string>
 
 </resources>

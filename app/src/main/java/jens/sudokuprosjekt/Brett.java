@@ -135,10 +135,14 @@ public class Brett {
         return i - (finnRad(i) * 3);
     }
 
-    public feilType sjekkSvar(boolean merk) {
-        Log.i(MainActivity.tagg, "sjekkSvar(" + merk + ")");
+    public feilType sjekkSvar(boolean måVæreFull) {
+        Log.i(MainActivity.tagg, "sjekkSvar(" + måVæreFull + ")");
 
         feilType ret = feilType.RIKTIG;
+
+        if (måVæreFull && !erFylt()) {
+            ret = feilType.TOMME_RUTER;
+        }
 
         boolean[][] feil = new boolean[9][9];
 
@@ -157,9 +161,9 @@ public class Brett {
                             Log.i(MainActivity.tagg, "B-konflikt: " + tallT[i] + " i boks " + t);
                             feil[t][j] = true;
                             feil[t][i] = true;
+                            ret = feilType.FEIL_TALL;
+
                         }
-                        //...men returnere false uansett
-                        ret = feilType.FEIL_TALL;
                     }
                 }
 
@@ -177,8 +181,8 @@ public class Brett {
                                         Log.i(MainActivity.tagg, "R/S-konflikt: " + tallT[i] + " i boks " + t + " mot " + tallJ[k] + " i boks " + j);
                                         feil[j][k] = true;
                                         feil[t][i] = true;
+                                        ret = feilType.FEIL_TALL;
                                     }
-                                    ret = feilType.FEIL_TALL;
                                 }
                             }
                         }
@@ -186,12 +190,10 @@ public class Brett {
                 }
             }
         }
-        if (!erFylt()) {
-            ret = feilType.TOMME_RUTER;
-        }
-        if (merk) {
-            merkRuter(feil);
-        }
+
+
+        merkRuter(feil);
+
         return ret;
     }
 

@@ -33,6 +33,7 @@
     <string name="hovedMenyKnapp">Til hovedmenyen</string>
 
     <string name="feilTallMsg">Du har feil tall et sted! Bruk hintknappen for å finne feilen.</string>
+    <string name="feilTallLagMsg">Du har feil tall et sted!</string>
     <string name="tomRuteMsg">Du må fylle inn alle rutene!</string>
 
     <string name="slettAlleKnapp">Slett alle skapte brett</string>
